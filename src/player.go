@@ -21,6 +21,14 @@ import (
 
 type Player struct {
 	*Sprite
+	start twodee.Point
+}
+
+func NewPlayer(sprite *Sprite) *Player {
+	return &Player{
+		Sprite: sprite,
+		start: twodee.Pt(sprite.X(), sprite.Y()),
+	}
 }
 
 // IncreaseVelocityTowardsEntity computes a new velocity vector for p.
@@ -66,4 +74,10 @@ func (p *Player) GravitateToward(s Spatial) {
 func (p *Player) SignalCollision() {
 	p.VelocityX = -p.VelocityX
 	p.VelocityY = -p.VelocityY
+}
+
+func (p *Player) Reset() {
+	p.VelocityX = 0
+	p.VelocityY = 0
+	p.MoveTo(p.start)
 }
