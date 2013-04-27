@@ -14,9 +14,7 @@
 
 package main
 
-import (
-	"../lib/twodee"
-)
+import ()
 
 type Player struct {
 	*Sprite
@@ -24,6 +22,11 @@ type Player struct {
 }
 
 // IncreaseVelocityTowardsEntity computes a new velocity vector for p.
-func (p *Player) IncreaseVelocityTowardsEntity(twodee.Spatial) {
-
+func (p *Player) IncreaseVelocityTowardsEntity(s *Sprite) {
+	var (
+		pc = p.Centroid()
+		sc = s.Centroid()
+	)
+	p.VelocityX = (sc.X - pc.X) / 10.0
+	p.VelocityY = (sc.Y - pc.Y) / 10.0
 }
