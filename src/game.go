@@ -92,8 +92,8 @@ func (g *Game) checkKeys() {
 		// Handle player shit
 		switch g.state {
 		case STATE_GAME:
-			var e = g.Level.GetClosestEntity(g.Level.Player)
-			g.Level.Player.MoveToward(e)
+			var e = g.Level.GetClosestEntity(g.Level.Player.Sprite)
+			g.Level.Player.MoveToward(e.(*Sprite))
 		}
 	}
 }
