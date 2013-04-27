@@ -44,6 +44,8 @@ TODO
     [ ] End game state / screen
     [ ] Determine "standard" level structures
     [ ] Build a track of levels of increasing difficulty
+    [ ] Implement billboard system
+    [ ] Add help billboards to menus and intro levels
     [ ] Code for sound effects
     [ ] Code for music
     [ ] Programmer sfx
