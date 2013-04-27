@@ -110,6 +110,7 @@ func (l *Level) Draw() {
 			e.Draw()
 		}
 	}
+	l.Player.Draw()
 }
 
 // GetClosestEntity returns the closest CIRCLE type entity to the given entity.
