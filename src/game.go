@@ -43,6 +43,7 @@ type Game struct {
 	Splash *twodee.Sprite
 	state  int
 	exit   chan bool
+	closest *Sprite
 }
 
 func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
@@ -92,8 +93,7 @@ func (g *Game) checkKeys() {
 		// Handle player shit
 		switch g.state {
 		case STATE_GAME:
-			var e = g.Level.GetClosestEntity(g.Level.Player.Sprite)
-			g.Level.Player.MoveToward(e)
+			g.Level.Player.MoveToward(g.closest)
 		}
 	}
 }
@@ -121,6 +121,11 @@ func (g *Game) Run() (err error) {
 		update := time.NewTicker(time.Second / time.Duration(UPDATE_HZ))
 		for true {
 			<-update.C
+			if g.closest != nil {
+				g.closest.SetFrame(3)
+			}
+			g.closest = g.Level.GetClosestEntity(g.Level.Player.Sprite)
+			g.closest.SetFrame(4)
 			g.checkKeys()
 			if g.Level.Player != nil {
 				g.Level.Player.Update()
