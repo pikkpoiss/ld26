@@ -124,7 +124,7 @@ func (g *Game) Run() (err error) {
 			if g.closest != nil {
 				g.closest.SetFrame(3)
 			}
-			g.closest = g.Level.GetClosestEntity(g.Level.Player.Sprite)
+			g.closest = g.Level.GetClosestEntity(g.Level.Player.Sprite).(*Sprite)
 			g.closest.SetFrame(4)
 			g.checkKeys()
 			if g.Level.Player != nil {
