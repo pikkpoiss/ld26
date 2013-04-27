@@ -90,14 +90,12 @@ func (l *Level) GetBounds() twodee.Rectangle {
 // GetCollision returns whatever spatial s first collides with in the level.
 func (l *Level) GetCollision(s twodee.Spatial) twodee.Spatial {
 	r := s.Bounds()
-	for _, eClass := range l.Entities {
-		for _, e := range eClass {
-			if s == e {
-				continue
-			}
-			if r.Overlaps(e.Bounds()) {
-				return e
-			}
+	for _, e := range l.Entities[BOX] {
+		if s == e {
+			continue
+		}
+		if r.Overlaps(e.Bounds()) {
+			return e
 		}
 	}
 	return nil

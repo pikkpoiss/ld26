@@ -129,6 +129,9 @@ func (g *Game) Run() (err error) {
 			g.checkKeys()
 			if g.Level.Player != nil {
 				g.Level.Player.Update()
+				if c := g.Level.GetCollision(g.Level.Player); c != nil {
+					g.Level.Player.SignalCollision()
+				}
 			}
 		}
 	}()
