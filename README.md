@@ -5,6 +5,12 @@ Ludum Dare 26
 
 Theme: minimalism
 
+Instructions
+------------
+    git clone ...
+    git submodule init
+    git submodule update
+
 TODO
 ----
 - [X] Wait for theme announcement
