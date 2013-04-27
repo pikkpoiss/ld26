@@ -99,7 +99,7 @@ func (l *Level) GetCollision(s twodee.Spatial) twodee.Spatial {
 	return nil
 }
 
-// Draws all entities in our data structure.
+// Draw iterates over all entities in the level and draws them.
 func (l *Level) Draw() {
 	for _, eClass := range l.Entities {
 		for _, e := range eClass {
