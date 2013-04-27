@@ -34,6 +34,7 @@ type Game struct {
 	System *twodee.System
 	Window *twodee.Window
 	Camera *twodee.Camera
+	Level *Level
 	exit   chan bool
 }
 
@@ -59,6 +60,8 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	game.handleClose()
 	game.System.SetFont(font)
 	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
+	game.Level = &Level{}
+	twodee.LoadTiledMap(game.System, game.Level, "data/level-dev.json")
 	return
 }
 
@@ -67,6 +70,13 @@ func (g *Game) handleClose() {
 		g.exit <- true
 		return 0
 	})
+}
+
+func (g *Game) checkKeys() {
+	switch {
+	case g.System.Key(twodee.KeySpace) == 1:
+		// Handle player shit
+	}
 }
 
 func (g *Game) handleKeys() {
@@ -87,6 +97,7 @@ func (g *Game) Run() (err error) {
 		update := time.NewTicker(time.Second / time.Duration(UPDATE_HZ))
 		for true {
 			<-update.C
+			g.checkKeys()
 		}
 	}()
 	running := true
@@ -106,4 +117,9 @@ func (g *Game) Run() (err error) {
 
 func (g *Game) Draw() {
 	g.Camera.SetProjection()
+	for _, l := range g.Level.Entities {
+		for _, e := range l {
+			e.Draw()
+		}
+	}
 }

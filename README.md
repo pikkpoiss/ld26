@@ -27,10 +27,12 @@ TODO
     [X] Add planetoid object code
     [X] Game loop
     [X] Handle ESC/Close window
-    [ ] Add camera code
-    [ ] Handle button presses
-    [ ] Add load / swap level code
+    [X] Add camera code
+    [ ] Load dev map and get running
     [ ] Collision detection
+    [ ] Handle button presses
+    [ ] Player physics
+    [ ] Add load / swap level code
     [ ] Scoring system
     [ ] Lives system
     [ ] End game state / screen
