@@ -14,17 +14,51 @@
 
 package main
 
-type Level struct {
-}
+import (
+	"../lib/twodee"
+)
 
 // Need to load a level, call something like this:
 // twodee.LoadTiledMap(system, level, "examples/complex/levels/level01.json");
 
-// Gets called when the level loader recognizes a tile
+// Level describes a particular set of static and dynamic sprites that make up a
+// particular map.
+type Level struct {
+	System      *twodee.System
+	Static      []twodee.SpatialVisible
+	Dynamic     []twodee.SpatialVisibleChanging
+	levelBounds twodee.Rectangle
+}
+
+// Create generates a new sprite for the indicated tileset and appends it to our
+// set of level sprites. It gets called when the level loader recognizes a tile.
 func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	// Need to check the tileset and index to determine what to do.
 	// Should create sprites for most objects
 	// Keep track of player sprite and just mark starting location.
+	switch tileset {
+	case "tilegame":
+		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
+		sprite.SetFrame(index)
+		l.Static = append(l.Static, sprite)
+	case "character-textures":
+		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
+		var creature = NewCreature(sprite)
+		creature.SetFrame(index)
+		l.Dynamic = append(l.Dynamic, creature)
+		l.player = creature
+	default:
+		log.Printf("Tileset: %v %v\n", tileset, index)
+		log.Printf("Dim: %v %v %v %v\n", x, y, w, h)
+	}
 }
 
+// SetBounds stores the size of this particular level.
+func (l *Level) SetBounds(rect twodee.Rectangle) {
+	l.levelBounds = rect
+}
 
+// GetBounds returns the size of this particular level.
+func (l *Level) GetBounds() twodee.Rectangle {
+	return l.levelBounds
+}
