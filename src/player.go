@@ -18,7 +18,6 @@ import ()
 
 type Player struct {
 	*Sprite
-	Lives int
 }
 
 // IncreaseVelocityTowardsEntity computes a new velocity vector for p.

@@ -17,6 +17,7 @@ package main
 import (
 	"../lib/twodee"
 	"log"
+	"math"
 )
 
 // Need to load a level, call something like this:
@@ -34,7 +35,7 @@ const (
 // particular map.
 type Level struct {
 	System      *twodee.System
-	Entities    map[SpatialClass][]Sprite
+	Entities    map[SpatialClass][]*Sprite
 	levelBounds twodee.Rectangle
 	Player      *Player
 }
@@ -43,10 +44,10 @@ type Level struct {
 func NewLevel(s *twodee.System) *Level {
 	return &Level{
 		System: s,
-		Entities: map[SpatialClass][]Sprite{
-			CIRCLE:  make([]Sprite, 0),
-			BOX:     make([]Sprite, 0),
-			DYNAMIC: make([]Sprite, 0),
+		Entities: map[SpatialClass][]*Sprite{
+			CIRCLE:  make([]*Sprite, 0),
+			BOX:     make([]*Sprite, 0),
+			DYNAMIC: make([]*Sprite, 0),
 		},
 	}
 }
@@ -68,9 +69,8 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 		}
 	case "sprites16":
 		var sprite = &Sprite{l.System.NewSprite(tileset, x, y, w, h, index)}
-		mob := NewMob(sprite)
-		mob.SetFrame(index)
-		l.Entities[BOX] = append(l.Entities[BOX], mob)
+		sprite.SetFrame(index)
+		l.Entities[BOX] = append(l.Entities[BOX], sprite)
 	default:
 		log.Printf("Tileset: %v %v\n", tileset, index)
 		log.Printf("Dim: %v %v %v %v\n", x, y, w, h)
@@ -113,10 +113,10 @@ func (l *Level) Draw() {
 }
 
 // GetClosestEntity returns the closest CIRCLE type entity to the given entity.
-func (l *Level) GetClosestEntity(s *Sprite) twodee.Spatial {
+func (l *Level) GetClosestEntity(s *Sprite) *Sprite {
 	p := s.Centroid()
 	ld := math.MaxFloat64
-	ce := nil
+	var ce *Sprite = nil
 	for _, e := range l.Entities[CIRCLE] {
 		if s == e {
 			continue
