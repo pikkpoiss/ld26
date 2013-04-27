@@ -23,10 +23,13 @@ TODO
     [X] Wait for theme announcement
     [X] Init library and open window
     [X] Bootleg initial sprite work
-    [ ] Add load / swap level code
     [X] Bootleg test level
+    [X] Add planetoid object code
+    [X] Game loop
+    [X] Handle ESC/Close window
+    [ ] Add camera code
     [ ] Handle button presses
-    [ ] Add planetoid object code
+    [ ] Add load / swap level code
     [ ] Collision detection
     [ ] Scoring system
     [ ] Lives system
