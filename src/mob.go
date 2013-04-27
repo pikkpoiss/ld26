@@ -14,17 +14,15 @@
 
 package main
 
-import (
-	"../lib/twodee"
-)
+import ()
 
 // Mob represents a mobile sprite in the game.
 type Mob struct {
-	*twodee.Sprite
+	*Sprite
 }
 
 // NewMob creates a new Mob struct, setting its sprite field properly.
-func NewMob(sprite *twodee.Sprite) *Mob {
+func NewMob(sprite *Sprite) *Mob {
 	var m = &Mob{
 		Sprite: sprite,
 	}

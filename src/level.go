@@ -30,13 +30,18 @@ const (
 	DYNAMIC
 )
 
+type GameSpatialVisible interface {
+	twodee.SpatialVisible
+	Centroid() twodee.Point
+}
+
 // Level describes a particular set of static and dynamic sprites that make up a
 // particular map.
 type Level struct {
 	System      *twodee.System
 	Entities    map[SpatialClass][]twodee.SpatialVisible
 	levelBounds twodee.Rectangle
-	player      *Player
+	Player      *Player
 }
 
 // NewLevel constructs a Level struct and returns it.
@@ -59,11 +64,11 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	// Keep track of player sprite and just mark starting location.
 	switch tileset {
 	case "sprites32":
-		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
+		var sprite = &Sprite{l.System.NewSprite(tileset, x, y, w, h, index)}
 		sprite.SetFrame(index)
 		l.Entities[CIRCLE] = append(l.Entities[CIRCLE], sprite)
 	case "sprites16":
-		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
+		var sprite = &Sprite{l.System.NewSprite(tileset, x, y, w, h, index)}
 		mob := NewMob(sprite)
 		mob.SetFrame(index)
 		l.Entities[BOX] = append(l.Entities[BOX], mob)
@@ -110,5 +115,6 @@ func (l *Level) Draw() {
 
 // GetClosestEntityToPLayer returns the closest spatial entity to the player.
 func (l *Level) GetClosestEntityToPlayer() twodee.Spatial {
+	p := l.Player.Centroid()
 	return nil
 }

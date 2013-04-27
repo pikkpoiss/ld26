@@ -19,8 +19,8 @@ import (
 )
 
 type Player struct {
-	Sprite *twodee.Sprite
-	Lives  int
+	*Sprite
+	Lives int
 }
 
 // IncreaseVelocityTowardsEntity computes a new velocity vector for p.
