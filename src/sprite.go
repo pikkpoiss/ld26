@@ -45,3 +45,6 @@ func (s *Sprite) State() int {
 	return s.state
 }
 
+func (s *Sprite) Collision(p *Player) {
+	// No-op in the default case
+}

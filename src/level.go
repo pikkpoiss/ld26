@@ -25,30 +25,21 @@ import (
 
 type SpatialClass int
 
-const (
-	BOX SpatialClass = iota
-	DYNAMIC
-)
-
 // Level describes a particular set of static and dynamic sprites that make up a
 // particular map.
 type Level struct {
 	System      *twodee.System
-	Entities    map[SpatialClass][]*Sprite
 	levelBounds twodee.Rectangle
 	Player      *Player
 	wells       []*GravityWell
+	zones       []Colliding
 }
 
 // NewLevel constructs a Level struct and returns it.
 func NewLevel(s *twodee.System) *Level {
 	return &Level{
 		System: s,
-		Entities: map[SpatialClass][]*Sprite{
-			BOX:     make([]*Sprite, 0),
-			DYNAMIC: make([]*Sprite, 0),
-		},
-		wells: make([]*GravityWell, 0),
+		wells:  make([]*GravityWell, 0),
 	}
 }
 
@@ -70,9 +61,15 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 			well.SetFrame(index)
 		}
 	case "sprites16":
-		var sprite = NewSprite(l.System.NewSprite(tileset, x, y, w, h, index))
+		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		sprite.SetFrame(index)
-		l.Entities[BOX] = append(l.Entities[BOX], sprite)
+		if index == 0 {
+			var zone = NewVictoryZone(sprite)
+			l.zones = append(l.zones, zone)
+		} else {
+			var zone = NewSprite(sprite)
+			l.zones = append(l.zones, zone)
+		}
 	default:
 		log.Printf("Tileset: %v %v\n", tileset, index)
 		log.Printf("Dim: %v %v %v %v\n", x, y, w, h)
@@ -90,9 +87,9 @@ func (l *Level) GetBounds() twodee.Rectangle {
 }
 
 // GetCollision returns whatever spatial s first collides with in the level.
-func (l *Level) GetCollision(s twodee.Spatial) Spatial {
+func (l *Level) GetCollision(s twodee.Spatial) Colliding {
 	r := s.Bounds()
-	for _, e := range l.Entities[BOX] {
+	for _, e := range l.zones {
 		if s == e {
 			continue
 		}
@@ -105,10 +102,8 @@ func (l *Level) GetCollision(s twodee.Spatial) Spatial {
 
 // Draw iterates over all entities in the level and draws them.
 func (l *Level) Draw() {
-	for _, eClass := range l.Entities {
-		for _, e := range eClass {
-			e.Draw()
-		}
+	for _, e := range l.zones {
+		e.Draw()
 	}
 	for _, e := range l.wells {
 		e.Draw()

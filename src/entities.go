@@ -16,6 +16,7 @@ package main
 
 import (
 	"../lib/twodee"
+	"log"
 )
 
 // Mob represents a mobile sprite in the game.
@@ -52,3 +53,20 @@ func (g *GravityWell) SetState(state int) {
 		g.Sprite.SetFrame(5)
 	}
 }
+
+type Zone struct {
+	*Sprite
+}
+
+type VictoryZone Zone
+
+func NewVictoryZone(sprite *twodee.Sprite) *VictoryZone {
+	return &VictoryZone{
+		Sprite: NewSprite(sprite),
+	}
+}
+
+func (z *VictoryZone) Collision(p *Player) {
+	log.Printf("Woop won")
+}
+
