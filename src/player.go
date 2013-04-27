@@ -30,9 +30,9 @@ func (p *Player) MoveToward(s *Sprite) {
 		dx = (sc.X - pc.X)
 		dy = (sc.Y - pc.Y)
 		h  = math.Hypot(dx, dy)
-		vx = 0.2 * dx / h
-		vy = 0.2 * dy / h
+		vx = math.Max(1, 5 - h) * 0.2 * dx / h
+		vy = math.Max(1, 5 - h) * 0.2 * dy / h
 	)
-	p.VelocityX += (vx - p.VelocityX) / 30
-	p.VelocityY += (vy - p.VelocityY) / 30
+	p.VelocityX += (vx - p.VelocityX) / 40
+	p.VelocityY += (vy - p.VelocityY) / 40
 }
