@@ -22,3 +22,8 @@ type Player struct {
 	Sprite *twodee.Sprite
 	Lives  int
 }
+
+// IncreaseVelocityTowardsEntity computes a new velocity vector for p.
+func (p *Player) IncreaseVelocityTowardsEntity(twodee.Spatial) {
+
+}
