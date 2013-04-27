@@ -38,9 +38,15 @@ TODO
     [ ] End game state / screen
     [ ] Intro screen
     [ ] Level select screen?  Level progress at least
-    [ ] Production sprite work
     [ ] Determine "standard" level structures
     [ ] Build a track of levels of increasing difficulty
+    [ ] Code for sound effects
+    [ ] Code for music
+    [ ] Programmer sfx
+    [ ] Programmer music
+    [ ] Polished sprite work
+    [ ] Polished sfx
+    [ ] Polished music
 
 Brainstorming
 -------------
