@@ -34,9 +34,10 @@ TODO
     [X] Collision detection
     [X] Handle button presses
     [X] Player physics
-    [ ] Level select screen?  Level progress at least
+    [X] Level select screen?  Level progress at least
     [ ] Menu system?
     [ ] Flags to skip intro / level select
+    [ ] Speed up splash loading time
     [ ] Add load / swap level code
     [ ] Scoring system
     [ ] Lives system
