@@ -26,8 +26,7 @@ import (
 type SpatialClass int
 
 const (
-	CIRCLE SpatialClass = iota
-	BOX
+	BOX SpatialClass = iota
 	DYNAMIC
 )
 
@@ -46,7 +45,6 @@ func NewLevel(s *twodee.System) *Level {
 	return &Level{
 		System: s,
 		Entities: map[SpatialClass][]*Sprite{
-			CIRCLE:  make([]*Sprite, 0),
 			BOX:     make([]*Sprite, 0),
 			DYNAMIC: make([]*Sprite, 0),
 		},
