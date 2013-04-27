@@ -28,7 +28,9 @@ TODO
     [X] Game loop
     [X] Handle ESC/Close window
     [X] Add camera code
-    [ ] Load dev map and get running
+    [X] Load dev map and get running
+    [X] Intro screen
+    [ ] Flags to skip intro / level select
     [ ] Collision detection
     [ ] Handle button presses
     [ ] Player physics
@@ -36,7 +38,6 @@ TODO
     [ ] Scoring system
     [ ] Lives system
     [ ] End game state / screen
-    [ ] Intro screen
     [ ] Level select screen?  Level progress at least
     [ ] Determine "standard" level structures
     [ ] Build a track of levels of increasing difficulty
