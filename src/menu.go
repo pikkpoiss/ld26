@@ -41,12 +41,14 @@ func (s MenuOptionsByX) Less(i, j int) bool {
 type MenuOption struct {
 	*Sprite
 	Selectable bool
+	index int
 }
 
-func NewMenuOption(s *twodee.Sprite) *MenuOption {
+func NewMenuOption(s *twodee.Sprite, i int) *MenuOption {
 	return &MenuOption{
 		Sprite:     NewSprite(s),
 		Selectable: false,
+		index: i,
 	}
 }
 
@@ -55,12 +57,12 @@ func (o *MenuOption) SetState(state int) {
 	switch state {
 	case MENU_DESELECTED:
 		if o.Selectable {
-			o.SetFrame(0)
+			o.SetFrame(o.index)
 		} else {
-			o.SetFrame(2)
+			o.SetFrame(o.index + 2)
 		}
 	case MENU_SELECTED:
-		o.SetFrame(1)
+		o.SetFrame(o.index + 1)
 	}
 }
 
@@ -86,7 +88,7 @@ func (m *Menu) Create(tileset string, index int, x, y, w, h float64) {
 		m.background.SetTextureHeight(640)
 		m.background.SetFrame(index)
 	case "targets":
-		s := NewMenuOption(m.system.NewSprite(tileset, x, y, w, h, index))
+		s := NewMenuOption(m.system.NewSprite(tileset, x, y, w, h, index), index)
 		s.SetState(MENU_DESELECTED)
 		m.options = append(m.options, s)
 	default:
@@ -140,6 +142,10 @@ func (m *Menu) NextSelection() {
 
 func (m *Menu) PrevSelection() {
 	m.changeIndex(m.index - 1)
+}
+
+func (m *Menu) SetSelection(i int) {
+	m.changeIndex(i)
 }
 
 func (m *Menu) GetSelection() int {

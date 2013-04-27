@@ -33,6 +33,7 @@ const (
 const (
 	STATE_SPLASH = iota
 	STATE_SELECT
+	STATE_OPTION
 	STATE_GAME
 )
 
@@ -51,7 +52,9 @@ type Game struct {
 	CurrentLevel int
 	Splash       *twodee.Sprite
 	SelectMenu   *Menu
+	OptionMenu   *Menu
 	state        int
+	laststate    int
 	exit         chan bool
 	closest      SpatialVisibleStateful
 }
@@ -89,9 +92,20 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	game.System.SetFont(font)
 	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
 	game.SelectMenu = NewMenu(game.System)
-	twodee.LoadTiledMap(game.System, game.SelectMenu, "data/menu-select.json")
+	if twodee.LoadTiledMap(game.System, game.SelectMenu, "data/menu-select.json"); err != nil {
+		err = fmt.Errorf("Couldn't load select menu: %v", err)
+		return
+	}
 	game.SelectMenu.SetSelectable(0, true)
 	game.SelectMenu.SetSelectable(1, true)
+	game.OptionMenu = NewMenu(game.System)
+	log.Printf("Loading option menu\n")
+	if err = twodee.LoadTiledMap(game.System, game.OptionMenu, "data/menu-options.json"); err != nil {
+		err = fmt.Errorf("Couldn't load options menu: %v", err)
+		return
+	}
+	game.OptionMenu.SetSelectable(0, true)
+	game.OptionMenu.SetSelectable(1, false)
 	return
 }
 
@@ -114,32 +128,74 @@ func (g *Game) checkKeys() {
 	}
 }
 
+func (g *Game) handleMenuKey(menu *Menu, key int, state int) {
+	switch {
+	case state == 0:
+		return
+	case key == twodee.KeyLeft:
+		fallthrough
+	case key == twodee.KeyUp:
+		menu.PrevSelection()
+	case key == twodee.KeyRight:
+		fallthrough
+	case key == twodee.KeyDown:
+		menu.NextSelection()
+	}
+}
+
 func (g *Game) handleKeys() {
 	g.System.SetKeyCallback(func(key int, state int) {
-		switch {
-		case key == twodee.KeySpace && state == 0:
-			switch g.state {
-			case STATE_SPLASH:
-				g.state = STATE_SELECT
-			case STATE_SELECT:
+		switch g.state {
+		case STATE_OPTION:
+			g.handleMenuKey(g.OptionMenu, key, state)
+			switch {
+			case key == twodee.KeyEnter && state == 0:
+				fallthrough
+			case key == twodee.KeySpace && state == 0:
+				sel := g.OptionMenu.GetSelection()
+				switch sel {
+				case 0:
+					g.exit <- true
+				case 1:
+					if g.Level != nil {
+						g.Level.Restart()
+					}
+					g.state = g.laststate
+				}
+			case key == twodee.KeyEsc && state == 0:
+				g.state = g.laststate
+			}
+		case STATE_SELECT:
+			g.handleMenuKey(g.SelectMenu, key, state)
+			switch {
+			case key == twodee.KeyEnter && state == 0:
+				fallthrough
+			case key == twodee.KeySpace && state == 0:
 				g.SetLevel(g.SelectMenu.GetSelection())
+			case key == twodee.KeyEsc && state == 0:
+				g.OptionMenu.SetSelectable(1, false)
+				g.laststate = g.state
+				g.state = STATE_OPTION
 			}
-		case state == 0:
-			return
-		case key == twodee.KeyEsc:
-			g.exit <- true
-		case key == twodee.KeyLeft:
-			switch g.state {
-			case STATE_SELECT:
-				g.SelectMenu.PrevSelection()
+		case STATE_SPLASH:
+			switch {
+			case key == twodee.KeyEnter && state == 0:
+				fallthrough
+			case key == twodee.KeySpace && state == 0:
+				g.state = STATE_SELECT
+			case key == twodee.KeyEsc && state == 0:
+				g.OptionMenu.SetSelectable(1, false)
+				g.laststate = g.state
+				g.state = STATE_OPTION
 			}
-		case key == twodee.KeyRight:
-			switch g.state {
-			case STATE_SELECT:
-				g.SelectMenu.NextSelection()
+		case STATE_GAME:
+			switch {
+			case key == twodee.KeyEsc && state == 0:
+				g.OptionMenu.SetSelectable(1, true)
+				g.OptionMenu.SetSelection(1)
+				g.laststate = g.state
+				g.state = STATE_OPTION
 			}
-		default:
-			log.Printf("Key: %v, State: %v\n", key, state)
 		}
 	})
 }
@@ -206,6 +262,9 @@ func (g *Game) Draw() {
 	default:
 		if g.Level != nil {
 			g.Level.Draw()
+		}
+		if g.state == STATE_OPTION {
+			g.OptionMenu.Draw()
 		}
 	}
 }

@@ -113,6 +113,10 @@ func (l *Level) Draw() {
 	l.Player.Draw()
 }
 
+// Resets the level
+func (l *Level) Restart() {
+}
+
 // GetClosestEntity returns the closest CIRCLE type entity to the given entity.
 func (l *Level) GetClosestAttachable(s Spatial) SpatialVisibleStateful {
 	p := s.Centroid()
