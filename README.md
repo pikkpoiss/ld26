@@ -7,14 +7,20 @@ Theme: minimalism
 
 Instructions
 ------------
+Starting:
+
     git clone ...
     git submodule init
     git submodule update
 
+Running:
+
+    go run src/*.go
+
 TODO
 ----
 - [X] Wait for theme announcement
-- [ ] Make awesome game for justice
+- [X] Init library and open window
 
 Brainstorming
 -------------
