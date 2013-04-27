@@ -27,7 +27,7 @@ type Player struct {
 func NewPlayer(sprite *Sprite) *Player {
 	return &Player{
 		Sprite: sprite,
-		start: twodee.Pt(sprite.X(), sprite.Y()),
+		start:  twodee.Pt(sprite.X(), sprite.Y()),
 	}
 }
 
@@ -63,6 +63,19 @@ func (p *Player) GravitateToward(s Spatial) {
 
 	// Calculate an orthogonal counter-clockwise 'circulation' vector.
 	cv := twodee.Pt(-av.Y, av.X)
+	if av.X > 0 {
+		// On the left side of the well, our Y component should be negative.
+		if cv.Y > 0 {
+			cv.X = -cv.X
+			cv.Y = -cv.Y
+		}
+	} else {
+		// On the right side of the well, our Y component should be positive
+		if cv.Y < 0 {
+			cv.X = -cv.X
+			cv.Y = -cv.Y
+		}
+	}
 
 	// Now do some vector addition.
 	fv := twodee.Pt(av.X+cv.X, av.Y+cv.Y)
