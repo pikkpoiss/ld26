@@ -83,18 +83,47 @@ func (p *Player) GravitateToward(s Spatial) {
 	p.VelocityY += (fv.Y - p.VelocityY) / 40
 }
 
+const (
+	CT = iota
+	CB
+	CL
+	CR
+)
+
 func (p *Player) Bounce(t Spatial) {
 	bp := p.Bounds()
 	bt := t.Bounds()
-	if bp.Max.X < bt.Max.X {
-		p.VelocityX = -math.Abs(p.VelocityX)
-	} else {
-		p.VelocityX = math.Abs(p.VelocityX)
+	dist := 1000.0
+	coll := CT
+	if d := math.Abs(bp.Max.X - bt.Min.X); d < dist {
+		dist = d
+		coll = CL
 	}
-	if bp.Max.Y < bt.Max.Y {
-		p.VelocityY = -math.Abs(p.VelocityY)
-	} else {
+	if d := math.Abs(bp.Min.X - bt.Max.X); d < dist {
+		dist = d
+		coll = CR
+	}
+	if d := math.Abs(bp.Max.Y - bt.Min.Y); d < dist {
+		dist = d
+		coll = CB
+	}
+	if d := math.Abs(bp.Min.Y - bt.Max.Y); d < dist {
+		dist = d
+		coll = CT
+	}
+	switch coll {
+	case CL:
+		p.VelocityX = -math.Abs(p.VelocityX)
+		p.MoveTo(twodee.Pt(t.X()-p.Width(), p.Y()))
+	case CR:
+		p.VelocityX = math.Abs(p.VelocityX)
+		p.MoveTo(twodee.Pt(t.X()+t.Width(), p.Y()))
+	case CT:
 		p.VelocityY = math.Abs(p.VelocityY)
+		p.MoveTo(twodee.Pt(p.X(), t.Y()+t.Height()))
+	case CB:
+		p.VelocityY = -math.Abs(p.VelocityY)
+		p.MoveTo(twodee.Pt(p.X(), t.Y()-p.Height()))
 	}
 }
 
