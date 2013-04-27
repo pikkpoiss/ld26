@@ -14,29 +14,17 @@
 
 package main
 
-import (
-	"../lib/twodee"
-	"fmt"
-)
-
-type Game struct {
-	System *twodee.System
-	Window *twodee.Window
+type Level struct {
 }
 
-func (g *Game) Run() (err error) {
-	for true {
-	}
-	return
+// Need to load a level, call something like this:
+// twodee.LoadTiledMap(system, level, "examples/complex/levels/level01.json");
+
+// Gets called when the level loader recognizes a tile
+func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
+	// Need to check the tileset and index to determine what to do.
+	// Should create sprites for most objects
+	// Keep track of player sprite and just mark starting location.
 }
 
-func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
-	game = &Game{
-		System: sys,
-		Window: win,
-	}
-	if err = sys.Open(win); err != nil {
-		err = fmt.Errorf("Couldn't open window: %v", err)
-	}
-	return
-}
+
