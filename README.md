@@ -22,9 +22,9 @@ TODO
 
     [X] Wait for theme announcement
     [X] Init library and open window
-    [ ] Bootleg initial sprite work
+    [X] Bootleg initial sprite work
     [ ] Add load / swap level code
-    [ ] Bootleg test level
+    [X] Bootleg test level
     [ ] Handle button presses
     [ ] Add planetoid object code
     [ ] Collision detection
