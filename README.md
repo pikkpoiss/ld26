@@ -30,6 +30,7 @@ TODO
     [X] Add camera code
     [X] Load dev map and get running
     [X] Intro screen
+    [ ] Interface instead of relying on *Sprite for everything
     [ ] Flags to skip intro / level select
     [ ] Collision detection
     [ ] Handle button presses
