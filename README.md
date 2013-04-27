@@ -40,6 +40,7 @@ TODO
     [ ] Menus (exit, restart level, etc)
     [ ] Speed up splash loading time
     [ ] Add load / swap level code
+    [ ] Handle screen resize or prevent screen resize
     [ ] Scoring system
     [ ] Lives system
     [ ] End game state / screen
