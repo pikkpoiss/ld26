@@ -15,6 +15,7 @@
 package main
 
 import (
+	"../lib/twodee"
 	"math"
 )
 
@@ -35,6 +36,30 @@ func (p *Player) MoveToward(s Spatial) {
 	)
 	p.VelocityX += (vx - p.VelocityX) / 40
 	p.VelocityY += (vy - p.VelocityY) / 40
+}
+
+// GravitateToward computes a new velocity vector for p, taking into account a
+// circulation effect.
+func (p *Player) GravitateToward(s Spatial) {
+	var (
+		pc  = p.Centroid()
+		sc  = s.Centroid()
+		avx = sc.X - pc.X
+		avy = sc.Y - pc.Y
+		d   = math.Hypot(avx, avy)
+	)
+	// Normalize vector and include sensible constraints.
+	avx = avx / d
+	avy = avy / d
+	av := twodee.Pt(math.Max(1, 5-d)*0.2*avx, math.Max(1, 5-d)*0.2*avy)
+
+	// Calculate an orthogonal counter-clockwise 'circulation' vector.
+	cv := twodee.Pt(-av.Y, av.X)
+
+	// Now do some vector addition.
+	fv := twodee.Pt(av.X+cv.X, av.Y+cv.Y)
+	p.VelocityX += (fv.X - p.VelocityX) / 40
+	p.VelocityY += (fv.Y - p.VelocityY) / 40
 }
 
 // Ceases all movement; sets velocities to 0.
