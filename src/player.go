@@ -57,8 +57,8 @@ func (p *Player) GravitateToward(s Spatial) {
 		d   = math.Hypot(avx, avy)
 	)
 	// Normalize vector and include sensible constraints.
-	avx = math.Copysign((avx*avx)/(d*d), avx)
-	avy = math.Copysign((avy*avy)/(d*d), avy)
+	avx = avx / d
+	avy = avy / d
 	av := twodee.Pt(math.Max(1, 5-d)*0.2*avx, math.Max(1, 5-d)*0.2*avy)
 
 	// Calculate an orthogonal counter-clockwise 'circulation' vector.
