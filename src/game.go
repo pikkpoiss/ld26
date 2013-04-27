@@ -116,6 +116,10 @@ func (g *Game) Run() (err error) {
 		for true {
 			<-update.C
 			g.checkKeys()
+			if g.Level.Player != nil {
+				g.Level.Player.VelocityX = 0.1
+				g.Level.Player.Update()
+			}
 		}
 	}()
 	running := true
