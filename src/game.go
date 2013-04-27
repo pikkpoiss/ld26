@@ -47,6 +47,7 @@ type Game struct {
 	System       *twodee.System
 	Window       *twodee.Window
 	Camera       *twodee.Camera
+	Font         *twodee.Font
 	Level        *Level
 	Levels       []string
 	CurrentLevel int
@@ -55,14 +56,12 @@ type Game struct {
 	OptionMenu   *Menu
 	state        int
 	laststate    int
+	lastpaint    time.Time
 	exit         chan bool
 	closest      Stateful
 }
 
 func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
-	var (
-		font *twodee.Font
-	)
 	game = &Game{
 		System: sys,
 		Window: win,
@@ -81,7 +80,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		err = fmt.Errorf("Couldn't load texture: %v", err)
 		return
 	}
-	if font, err = twodee.LoadFont("data/slkscr.ttf", 24); err != nil {
+	if game.Font, err = twodee.LoadFont("data/slkscr.ttf", 24); err != nil {
 		err = fmt.Errorf("Couldn't load font: %v", err)
 		return
 	}
@@ -89,7 +88,6 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	game.Splash.SetTextureHeight(640)
 	game.handleKeys()
 	game.handleClose()
-	game.System.SetFont(font)
 	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
 	game.SelectMenu = NewMenu(game.System)
 	if twodee.LoadTiledMap(game.System, game.SelectMenu, "data/menu-select.json"); err != nil {
@@ -254,6 +252,13 @@ func (g *Game) Run() (err error) {
 }
 
 func (g *Game) Draw() {
+	var (
+		now time.Time
+		fps float64
+	)
+	now = time.Now()
+	fps = 1.0 / now.Sub(g.lastpaint).Seconds()
+
 	g.Camera.SetProjection()
 	switch g.state {
 	case STATE_SPLASH:
@@ -264,8 +269,11 @@ func (g *Game) Draw() {
 		if g.Level != nil {
 			g.Level.Draw()
 		}
+		g.Font.Printf(0, 10, "FPS %6.1f", fps)
+		g.Font.Printf(0, 40, "%6.1f seconds", g.Level.Player.Elapsed.Seconds())
 		if g.state == STATE_OPTION {
 			g.OptionMenu.Draw()
 		}
 	}
+	g.lastpaint = now
 }
