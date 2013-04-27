@@ -24,11 +24,16 @@ import (
 const (
 	UPDATE_HZ int = 60
 	PAINT_HZ  int = 60
+	BG_R int = 0
+	BG_G int = 0
+	BG_B int = 0
+	BG_A int = 0
 )
 
 type Game struct {
 	System *twodee.System
 	Window *twodee.Window
+	Camera *twodee.Camera
 	exit   chan bool
 }
 
@@ -44,6 +49,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	}
 	game.handleKeys()
 	game.handleClose()
+	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
 	return
 }
 
