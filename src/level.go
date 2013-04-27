@@ -53,8 +53,8 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	case "sprites32":
 		if index == 0 {
 			var sprite = NewSprite(l.System.NewSprite(tileset, x, y, w, h, index))
-			l.Player = &Player{sprite}
 			sprite.SetFrame(index)
+			l.Player = NewPlayer(sprite)
 		} else {
 			var well = NewGravityWell(l.System.NewSprite(tileset, x, y, w, h, index))
 			l.wells = append(l.wells, well)
@@ -113,6 +113,7 @@ func (l *Level) Draw() {
 
 // Resets the level
 func (l *Level) Restart() {
+	l.Player.Reset()
 }
 
 // GetClosestEntity returns the closest CIRCLE type entity to the given entity.
