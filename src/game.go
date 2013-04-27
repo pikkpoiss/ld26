@@ -36,13 +36,13 @@ const (
 )
 
 type Game struct {
-	System *twodee.System
-	Window *twodee.Window
-	Camera *twodee.Camera
-	Level  *Level
-	Splash *twodee.Sprite
-	state  int
-	exit   chan bool
+	System  *twodee.System
+	Window  *twodee.Window
+	Camera  *twodee.Camera
+	Level   *Level
+	Splash  *twodee.Sprite
+	state   int
+	exit    chan bool
 	closest *Sprite
 }
 
