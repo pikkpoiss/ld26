@@ -24,10 +24,10 @@ import (
 const (
 	UPDATE_HZ int = 60
 	PAINT_HZ  int = 60
-	BG_R int = 0
-	BG_G int = 0
-	BG_B int = 0
-	BG_A int = 0
+	BG_R      int = 0
+	BG_G      int = 0
+	BG_B      int = 0
+	BG_A      int = 255
 )
 
 type Game struct {
@@ -38,6 +38,9 @@ type Game struct {
 }
 
 func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
+	var (
+		font *twodee.Font
+	)
 	game = &Game{
 		System: sys,
 		Window: win,
@@ -48,8 +51,13 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		err = fmt.Errorf("Couldn't open window: %v", err)
 		return
 	}
+	if font, err = twodee.LoadFont("data/slkscr.ttf", 24); err != nil {
+		err = fmt.Errorf("Couldn't load font: %v", err)
+		return
+	}
 	game.handleKeys()
 	game.handleClose()
+	game.System.SetFont(font)
 	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
 	return
 }
