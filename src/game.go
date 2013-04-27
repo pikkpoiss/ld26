@@ -123,7 +123,8 @@ func (g *Game) checkKeys() {
 		switch g.state {
 		case STATE_GAME:
 			g.closest.SetState(STATE_ATTACHED)
-			g.Level.Player.MoveToward(g.closest)
+			// g.Level.Player.MoveToward(g.closest)
+			g.Level.Player.GravitateToward(g.closest)
 		}
 	}
 }
