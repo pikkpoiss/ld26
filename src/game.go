@@ -101,13 +101,13 @@ func (g *Game) checkKeys() {
 func (g *Game) handleKeys() {
 	g.System.SetKeyCallback(func(key int, state int) {
 		switch {
-		case state == 0:
-			return
-		case key == twodee.KeySpace:
+		case key == twodee.KeySpace && state == 0:
 			switch g.state {
 			case STATE_SPLASH:
 				g.state = STATE_GAME
 			}
+		case state == 0:
+			return
 		case key == twodee.KeyEsc:
 			g.exit <- true
 		default:
