@@ -32,6 +32,7 @@ const (
 
 const (
 	STATE_SPLASH = iota
+	STATE_SELECT
 	STATE_GAME
 )
 
@@ -47,6 +48,7 @@ type Game struct {
 	Camera  *twodee.Camera
 	Level   *Level
 	Splash  *twodee.Sprite
+	SelectMenu *Menu
 	state   int
 	exit    chan bool
 	closest SpatialVisibleStateful
@@ -81,8 +83,10 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	game.handleClose()
 	game.System.SetFont(font)
 	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
-	game.Level = NewLevel(game.System)
-	twodee.LoadTiledMap(game.System, game.Level, "data/level-dev.json")
+	game.SelectMenu = NewMenu(game.System)
+	twodee.LoadTiledMap(game.System, game.SelectMenu, "data/menu-select.json")
+	game.SelectMenu.SetSelectable(0, true)
+	game.SelectMenu.SetSelectable(1, true)
 	return
 }
 
@@ -111,12 +115,27 @@ func (g *Game) handleKeys() {
 		case key == twodee.KeySpace && state == 0:
 			switch g.state {
 			case STATE_SPLASH:
+				g.state = STATE_SELECT
+			case STATE_SELECT:
+				level := NewLevel(g.System)
+				twodee.LoadTiledMap(g.System, level, "data/level-dev.json")
+				g.Level = level
 				g.state = STATE_GAME
 			}
 		case state == 0:
 			return
 		case key == twodee.KeyEsc:
 			g.exit <- true
+		case key == twodee.KeyLeft:
+			switch g.state {
+			case STATE_SELECT:
+				g.SelectMenu.PrevSelection()
+			}
+		case key == twodee.KeyRight:
+			switch g.state {
+			case STATE_SELECT:
+				g.SelectMenu.NextSelection()
+			}
 		default:
 			log.Printf("Key: %v, State: %v\n", key, state)
 		}
@@ -128,6 +147,9 @@ func (g *Game) Run() (err error) {
 		update := time.NewTicker(time.Second / time.Duration(UPDATE_HZ))
 		for true {
 			<-update.C
+			if g.Level == nil {
+				continue
+			}
 			if g.closest != nil {
 				g.closest.SetState(STATE_NORMAL)
 			}
@@ -159,9 +181,14 @@ func (g *Game) Run() (err error) {
 
 func (g *Game) Draw() {
 	g.Camera.SetProjection()
-	if g.state == STATE_SPLASH {
+	switch g.state {
+	case STATE_SPLASH:
 		g.Splash.Draw()
-	} else {
-		g.Level.Draw()
+	case STATE_SELECT:
+		g.SelectMenu.Draw()
+	default:
+		if g.Level != nil {
+			g.Level.Draw()
+		}
 	}
 }

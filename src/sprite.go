@@ -44,3 +44,4 @@ func (s *Sprite) SetState(state int) {
 func (s *Sprite) State() int {
 	return s.state
 }
+

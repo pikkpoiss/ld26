@@ -30,16 +30,17 @@ TODO
     [X] Add camera code
     [X] Load dev map and get running
     [X] Intro screen
-    [ ] Interface instead of relying on *Sprite for everything
+    [X] Interface instead of relying on *Sprite for everything
+    [X] Collision detection
+    [X] Handle button presses
+    [X] Player physics
+    [ ] Level select screen?  Level progress at least
+    [ ] Menu system?
     [ ] Flags to skip intro / level select
-    [ ] Collision detection
-    [ ] Handle button presses
-    [ ] Player physics
     [ ] Add load / swap level code
     [ ] Scoring system
     [ ] Lives system
     [ ] End game state / screen
-    [ ] Level select screen?  Level progress at least
     [ ] Determine "standard" level structures
     [ ] Build a track of levels of increasing difficulty
     [ ] Code for sound effects

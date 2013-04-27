@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="71" height="40" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="background" tilewidth="1136" tileheight="640">
+  <image source="../data/splash.png" width="4096" height="1024"/>
+ </tileset>
+ <tileset firstgid="4" name="targets" tilewidth="128" tileheight="128">
+  <image source="../data/select128.png" width="512" height="128"/>
+ </tileset>
+ <tileset firstgid="8" name="select32" tilewidth="32" tileheight="32">
+  <image source="../data/select32.png" width="64" height="32"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="71" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6DP/qGNcTchAQkAAAAAAAAAAAAA/DLtwGELLpgAAw==
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="71" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt1zsOhDAMBUAKCu5/4i2RViu0fOw8YKahi19sF2GaAAAAAIAty+gAD1DRw+Xrm+RIpsp7JPToV4a5oE7FmVW1rprL03enU/d999a7Ol/Vfd+2N91G782/ZybkZHWHedwhY5ekd25ChnRJ80qnRyTp/HdkXL/NGeCcD3neARE=
+  </data>
+ </layer>
+</map>
