@@ -35,7 +35,7 @@ const (
 // particular map.
 type Level struct {
 	System      *twodee.System
-	Entities    map[SpatialClass][]*Sprite
+	Entities    map[SpatialClass][]SpatialVisible
 	levelBounds twodee.Rectangle
 	Player      *Player
 }
@@ -44,10 +44,10 @@ type Level struct {
 func NewLevel(s *twodee.System) *Level {
 	return &Level{
 		System: s,
-		Entities: map[SpatialClass][]*Sprite{
-			CIRCLE:  make([]*Sprite, 0),
-			BOX:     make([]*Sprite, 0),
-			DYNAMIC: make([]*Sprite, 0),
+		Entities: map[SpatialClass][]SpatialVisible{
+			CIRCLE:  make([]SpatialVisible, 0),
+			BOX:     make([]SpatialVisible, 0),
+			DYNAMIC: make([]SpatialVisible, 0),
 		},
 	}
 }
@@ -114,10 +114,10 @@ func (l *Level) Draw() {
 }
 
 // GetClosestEntity returns the closest CIRCLE type entity to the given entity.
-func (l *Level) GetClosestEntity(s *Sprite) *Sprite {
+func (l *Level) GetClosestEntity(s *Sprite) Spatial {
 	p := s.Centroid()
 	ld := math.MaxFloat64
-	var ce *Sprite = nil
+	var ce SpatialVisible = nil
 	for _, e := range l.Entities[CIRCLE] {
 		if s == e {
 			continue

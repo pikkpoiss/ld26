@@ -15,24 +15,21 @@
 package main
 
 import (
-	"math"
+	"../lib/twodee"
 )
 
-type Player struct {
-	*Sprite
+type Spatial interface {
+	Centroid() twodee.Point
+	twodee.Spatial
 }
 
-// IncreaseVelocityTowardsEntity computes a new velocity vector for p.
-func (p *Player) MoveToward(s Spatial) {
-	var (
-		pc = p.Centroid()
-		sc = s.Centroid()
-		dx = (sc.X - pc.X)
-		dy = (sc.Y - pc.Y)
-		h  = math.Hypot(dx, dy)
-		vx = math.Max(1, 5 - h) * 0.2 * dx / h
-		vy = math.Max(1, 5 - h) * 0.2 * dy / h
-	)
-	p.VelocityX += (vx - p.VelocityX) / 40
-	p.VelocityY += (vy - p.VelocityY) / 40
+type SpatialVisible interface {
+	Spatial
+	twodee.Visible
+}
+
+type SpatialVisibleMovable interface {
+	Spatial
+	twodee.Visible
+	MoveToward(s Spatial)
 }
