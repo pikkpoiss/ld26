@@ -25,5 +25,5 @@ type Sprite struct {
 // Centroid returns the Point at the center of this sprite.
 func (s *Sprite) Centroid() twodee.Point {
 	var b = s.Sprite.GlobalBounds()
-	return twodee.Pt((b.Max.X-b.Min.X)/2, (b.Max.Y-b.Min.Y)/2)
+	return twodee.Pt((b.Max.X-b.Min.X)/2.0, (b.Max.Y-b.Min.Y)/2.0)
 }
