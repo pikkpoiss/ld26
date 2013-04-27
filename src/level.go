@@ -25,8 +25,7 @@ import (
 // particular map.
 type Level struct {
 	System      *twodee.System
-	Static      []twodee.SpatialVisible
-	Dynamic     []twodee.SpatialVisibleChanging
+	Entities    map[string][]twodee.SpatialVisible
 	levelBounds twodee.Rectangle
 }
 
@@ -38,14 +37,16 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	// Keep track of player sprite and just mark starting location.
 	switch tileset {
 	case "tilegame":
+		static := l.Entities["static"]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		sprite.SetFrame(index)
-		l.Static = append(l.Static, sprite)
+		static = append(static, sprite)
 	case "character-textures":
+		dynamic := l.Entities["dynamic"]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		var creature = NewCreature(sprite)
 		creature.SetFrame(index)
-		l.Dynamic = append(l.Dynamic, creature)
+		dynamic = append(dynamic, creature)
 		l.player = creature
 	default:
 		log.Printf("Tileset: %v %v\n", tileset, index)
@@ -61,4 +62,19 @@ func (l *Level) SetBounds(rect twodee.Rectangle) {
 // GetBounds returns the size of this particular level.
 func (l *Level) GetBounds() twodee.Rectangle {
 	return l.levelBounds
+}
+
+// GetCollision returns whatever spatial s first collides with in the level.
+func (l *Level) GetCollision(s twodee.Spatial) twodee.Spatial {
+	r := s.Bounds()
+	for _, eClass := range l.Entities {
+		for _, e := range eClass {
+			if s == e {
+				continue
+			}
+			if r.Overlaps(e.Bounds()) {
+				return e
+			}
+		}
+	}
 }
