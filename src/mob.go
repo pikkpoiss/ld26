@@ -18,10 +18,12 @@ import (
 	"../lib/twodee"
 )
 
+// Mob represents a mobile sprite in the game.
 type Mob struct {
 	*twodee.Sprite
 }
 
+// NewMob creates a new Mob struct, setting its sprite field properly.
 func NewMob(sprite *twodee.Sprite) *Mob {
 	var m = &Mob{
 		Sprite: sprite,
