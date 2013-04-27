@@ -16,6 +16,7 @@ package main
 
 import (
 	"../lib/twodee"
+	"log"
 )
 
 // Need to load a level, call something like this:
@@ -27,6 +28,7 @@ type Level struct {
 	System      *twodee.System
 	Entities    map[string][]twodee.SpatialVisible
 	levelBounds twodee.Rectangle
+	player      *Player
 }
 
 // Create generates a new sprite for the indicated tileset and appends it to our
@@ -44,10 +46,9 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	case "character-textures":
 		dynamic := l.Entities["dynamic"]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
-		var creature = NewCreature(sprite)
-		creature.SetFrame(index)
-		dynamic = append(dynamic, creature)
-		l.player = creature
+		mob := NewMob(sprite)
+		mob.SetFrame(index)
+		dynamic = append(dynamic, mob)
 	default:
 		log.Printf("Tileset: %v %v\n", tileset, index)
 		log.Printf("Dim: %v %v %v %v\n", x, y, w, h)
@@ -77,4 +78,5 @@ func (l *Level) GetCollision(s twodee.Spatial) twodee.Spatial {
 			}
 		}
 	}
+	return nil
 }
