@@ -35,7 +35,7 @@ TODO
     [X] Handle button presses
     [X] Player physics
     [X] Level select screen?  Level progress at least
-    [ ] Menu system?
+    [ ] Menus (exit, restart level, etc)
     [ ] Flags to skip intro / level select
     [ ] Speed up splash loading time
     [ ] Add load / swap level code
