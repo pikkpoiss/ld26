@@ -93,7 +93,7 @@ func (g *Game) checkKeys() {
 		switch g.state {
 		case STATE_GAME:
 			var e = g.Level.GetClosestEntity(g.Level.Player.Sprite)
-			g.Level.Player.MoveToward(e.(*Sprite))
+			g.Level.Player.MoveToward(e)
 		}
 	}
 }
