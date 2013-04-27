@@ -117,9 +117,5 @@ func (g *Game) Run() (err error) {
 
 func (g *Game) Draw() {
 	g.Camera.SetProjection()
-	for _, l := range g.Level.Entities {
-		for _, e := range l {
-			e.Draw()
-		}
-	}
+	g.Level.Draw()
 }
