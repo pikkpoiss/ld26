@@ -58,7 +58,6 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 		sprite.SetFrame(index)
 		l.Entities[CIRCLE] = append(l.Entities[CIRCLE], sprite)
 	case "sprites16":
-		dynamic := l.Entities[BOX]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		mob := NewMob(sprite)
 		mob.SetFrame(index)
