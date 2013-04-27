@@ -36,8 +36,8 @@ TODO
     [X] Player physics
     [X] Level select screen?  Level progress at least
     [X] Flags to skip intro / level select
+    [X] Menus (exit, restart level, etc)
     [ ] Win a level
-    [ ] Menus (exit, restart level, etc)
     [ ] Speed up splash loading time
     [ ] Add load / swap level code
     [ ] Handle screen resize or prevent screen resize
