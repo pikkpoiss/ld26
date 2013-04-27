@@ -35,7 +35,7 @@ const (
 // particular map.
 type Level struct {
 	System      *twodee.System
-	Entities    map[SpatialClass][]SpatialVisible
+	Entities    map[SpatialClass][]SpatialVisibleStateful
 	levelBounds twodee.Rectangle
 	Player      *Player
 }
@@ -44,10 +44,10 @@ type Level struct {
 func NewLevel(s *twodee.System) *Level {
 	return &Level{
 		System: s,
-		Entities: map[SpatialClass][]SpatialVisible{
-			CIRCLE:  make([]SpatialVisible, 0),
-			BOX:     make([]SpatialVisible, 0),
-			DYNAMIC: make([]SpatialVisible, 0),
+		Entities: map[SpatialClass][]SpatialVisibleStateful{
+			CIRCLE:  make([]SpatialVisibleStateful, 0),
+			BOX:     make([]SpatialVisibleStateful, 0),
+			DYNAMIC: make([]SpatialVisibleStateful, 0),
 		},
 	}
 }
@@ -60,15 +60,17 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	// Keep track of player sprite and just mark starting location.
 	switch tileset {
 	case "sprites32":
-		var sprite = &Sprite{l.System.NewSprite(tileset, x, y, w, h, index)}
-		sprite.SetFrame(index)
 		if index == 0 {
+			var sprite = NewSprite(l.System.NewSprite(tileset, x, y, w, h, index))
 			l.Player = &Player{sprite}
+			sprite.SetFrame(index)
 		} else {
+			var sprite = NewGravityWell(l.System.NewSprite(tileset, x, y, w, h, index))
 			l.Entities[CIRCLE] = append(l.Entities[CIRCLE], sprite)
+			sprite.SetFrame(index)
 		}
 	case "sprites16":
-		var sprite = &Sprite{l.System.NewSprite(tileset, x, y, w, h, index)}
+		var sprite = NewSprite(l.System.NewSprite(tileset, x, y, w, h, index))
 		sprite.SetFrame(index)
 		l.Entities[BOX] = append(l.Entities[BOX], sprite)
 	default:
@@ -112,10 +114,10 @@ func (l *Level) Draw() {
 }
 
 // GetClosestEntity returns the closest CIRCLE type entity to the given entity.
-func (l *Level) GetClosestEntity(s *Sprite) Spatial {
+func (l *Level) GetClosestAttachable(s Spatial) SpatialVisibleStateful {
 	p := s.Centroid()
 	ld := math.MaxFloat64
-	var ce SpatialVisible = nil
+	var ce SpatialVisibleStateful = nil
 	for _, e := range l.Entities[CIRCLE] {
 		if s == e {
 			continue
