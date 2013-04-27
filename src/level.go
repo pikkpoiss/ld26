@@ -39,6 +39,13 @@ type Level struct {
 	player      *Player
 }
 
+// NewLevel constructs a Level struct and returns it.
+func NewLevel(s *twodee.System) *Level {
+	return &Level{
+		System: s,
+	}
+}
+
 // Create generates a new sprite for the indicated tileset and appends it to our
 // set of level sprites. It gets called when the level loader recognizes a tile.
 func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
@@ -47,16 +54,15 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	// Keep track of player sprite and just mark starting location.
 	switch tileset {
 	case "sprites32":
-		static := l.Entities[CIRCLE]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		sprite.SetFrame(index)
-		static = append(static, sprite)
+		l.Entities[CIRCLE] = append(l.Entities[CIRCLE], sprite)
 	case "sprites16":
 		dynamic := l.Entities[BOX]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		mob := NewMob(sprite)
 		mob.SetFrame(index)
-		dynamic = append(dynamic, mob)
+		l.Entities[BOX] = append(l.Entities[BOX], mob)
 	default:
 		log.Printf("Tileset: %v %v\n", tileset, index)
 		log.Printf("Dim: %v %v %v %v\n", x, y, w, h)

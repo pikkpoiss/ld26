@@ -34,7 +34,7 @@ type Game struct {
 	System *twodee.System
 	Window *twodee.Window
 	Camera *twodee.Camera
-	Level *Level
+	Level  *Level
 	exit   chan bool
 }
 
@@ -60,7 +60,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	game.handleClose()
 	game.System.SetFont(font)
 	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
-	game.Level = &Level{}
+	game.Level = NewLevel(game.System)
 	twodee.LoadTiledMap(game.System, game.Level, "data/level-dev.json")
 	return
 }
