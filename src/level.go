@@ -63,13 +63,13 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	case "sprites16":
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		sprite.SetFrame(index)
+		var zone Colliding
 		if index == 0 {
-			var zone = NewVictoryZone(sprite)
-			l.zones = append(l.zones, zone)
+			zone = NewVictoryZone(sprite)
 		} else {
-			var zone = NewSprite(sprite)
-			l.zones = append(l.zones, zone)
+			zone = NewBounceZone(sprite)
 		}
+		l.zones = append(l.zones, zone)
 	default:
 		log.Printf("Tileset: %v %v\n", tileset, index)
 		log.Printf("Dim: %v %v %v %v\n", x, y, w, h)

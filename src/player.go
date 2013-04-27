@@ -83,10 +83,19 @@ func (p *Player) GravitateToward(s Spatial) {
 	p.VelocityY += (fv.Y - p.VelocityY) / 40
 }
 
-// Ceases all movement; sets velocities to 0.
-func (p *Player) SignalCollision() {
-	p.VelocityX = -p.VelocityX
-	p.VelocityY = -p.VelocityY
+func (p *Player) Bounce(t Spatial) {
+	bp := p.Bounds()
+	bt := t.Bounds()
+	if bp.Max.X < bt.Max.X {
+		p.VelocityX = -math.Abs(p.VelocityX)
+	} else {
+		p.VelocityX = math.Abs(p.VelocityX)
+	}
+	if bp.Max.Y < bt.Max.Y {
+		p.VelocityY = -math.Abs(p.VelocityY)
+	} else {
+		p.VelocityY = math.Abs(p.VelocityY)
+	}
 }
 
 func (p *Player) Reset() {

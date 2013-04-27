@@ -58,6 +58,18 @@ type Zone struct {
 	*Sprite
 }
 
+type BounceZone Zone
+
+func NewBounceZone(sprite *twodee.Sprite) *BounceZone {
+	return &BounceZone{
+		Sprite: NewSprite(sprite),
+	}
+}
+
+func (z *BounceZone) Collision(p *Player) {
+	p.Bounce(z)
+}
+
 type VictoryZone Zone
 
 func NewVictoryZone(sprite *twodee.Sprite) *VictoryZone {
