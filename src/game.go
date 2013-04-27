@@ -41,6 +41,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	game = &Game{
 		System: sys,
 		Window: win,
+		Camera: twodee.NewCamera(0, 0, 71, 40),
 		exit:   make(chan bool, 1),
 	}
 	if err = sys.Open(win); err != nil {
@@ -96,4 +97,5 @@ func (g *Game) Run() (err error) {
 }
 
 func (g *Game) Draw() {
+	g.Camera.SetProjection()
 }
