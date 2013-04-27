@@ -25,7 +25,8 @@ import (
 type SpatialClass int
 
 const (
-	STATIC SpatialClass = iota
+	CIRCLE SpatialClass = iota
+	BOX
 	DYNAMIC
 )
 
@@ -45,13 +46,13 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	// Should create sprites for most objects
 	// Keep track of player sprite and just mark starting location.
 	switch tileset {
-	case "tilegame":
-		static := l.Entities[STATIC]
+	case "sprites32":
+		static := l.Entities[CIRCLE]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		sprite.SetFrame(index)
 		static = append(static, sprite)
-	case "character-textures":
-		dynamic := l.Entities[DYNAMIC]
+	case "sprites16":
+		dynamic := l.Entities[BOX]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		mob := NewMob(sprite)
 		mob.SetFrame(index)
