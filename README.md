@@ -37,8 +37,8 @@ TODO
     [X] Level select screen?  Level progress at least
     [X] Flags to skip intro / level select
     [X] Menus (exit, restart level, etc)
+    [X] Don't require power of 2 image sizes
     [ ] Win a level
-    [ ] Speed up splash loading time
     [ ] Add load / swap level code
     [ ] Handle screen resize or prevent screen resize
     [ ] Scoring system
