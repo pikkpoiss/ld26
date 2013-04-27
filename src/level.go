@@ -66,7 +66,11 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	case "sprites32":
 		var sprite = &Sprite{l.System.NewSprite(tileset, x, y, w, h, index)}
 		sprite.SetFrame(index)
-		l.Entities[CIRCLE] = append(l.Entities[CIRCLE], sprite)
+		if index == 0 {
+			l.Player = &Player{sprite}
+		} else {
+			l.Entities[CIRCLE] = append(l.Entities[CIRCLE], sprite)
+		}
 	case "sprites16":
 		var sprite = &Sprite{l.System.NewSprite(tileset, x, y, w, h, index)}
 		mob := NewMob(sprite)
