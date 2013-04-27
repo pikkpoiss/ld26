@@ -16,32 +16,9 @@ package main
 
 import (
 	"../lib/twodee"
-	"log"
-	"runtime"
 )
 
-func init() {
-	// See https://code.google.com/p/go/issues/detail?id=3527
-	runtime.LockOSThread()
-}
-
-func main() {
-	var (
-		err    error
-		game   *Game
-		window *twodee.Window
-		system *twodee.System
-	)
-	if system, err = twodee.Init(); err != nil {
-		log.Fatalf("Couldn't init system: %v\n", err)
-	}
-	defer system.Terminate()
-	window = &twodee.Window{Width: 1136, Height: 640, Scale: 2}
-	if game, err = NewGame(system, window); err != nil {
-		log.Fatalf("Couldn't start game: %v\n", err)
-	}
-	if err = game.Run(); err != nil {
-		log.Fatalf("Exiting: %v\n", err)
-	}
-	log.Printf("Exiting peacefully")
+type Player struct {
+	Sprite *twodee.Sprite
+	Lives  int
 }

@@ -1,0 +1,173 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Add	lib/twodee/geometry.go	/^func (r Rectangle) Add(p Point) Rectangle {$/;"	d
+AddChild	lib/twodee/element.go	/^func (e *Element) AddChild(node Node) {$/;"	d
+Anim	lib/twodee/animation.go	/^func Anim(frames []int, repeat int) *Animation {$/;"	d
+Animation	lib/twodee/animation.go	/^type Animation struct {$/;"	d
+Bind	lib/twodee/framebuffer.go	/^func (fb *Framebuffer) Bind() {$/;"	d
+Bind	lib/twodee/texture.go	/^func (t *Texture) Bind() {$/;"	d
+Bottom	lib/twodee/camera.go	/^func (c *Camera) Bottom(y float64) {$/;"	d
+Bounds	lib/twodee/camera.go	/^func (c *Camera) Bounds() Rectangle {$/;"	d
+Bounds	lib/twodee/element.go	/^func (e *Element) Bounds() Rectangle {$/;"	d
+Camera	lib/twodee/camera.go	/^type Camera struct {$/;"	d
+Changing	lib/twodee/interfaces.go	/^type Changing interface {$/;"	d
+CharHandler	lib/twodee/system.go	/^type CharHandler func(key int, state int)$/;"	d
+Clear	lib/twodee/element.go	/^func (e *Element) Clear() {$/;"	d
+CloseHandler	lib/twodee/system.go	/^type CloseHandler func() int$/;"	d
+CollidesWith	lib/twodee/sprite.go	/^func (s *Sprite) CollidesWith(sprite *Sprite) bool {$/;"	d
+Create	lib/twodee/examples/complex/main.go	/^func (g *Game) Create(tileset string, index int, x, y, w, h float64) {$/;"	d
+Create	src/level.go	/^func (l *Level) Create(tileset string, index int, x, y, w, h float64) {$/;"	d
+Creature	lib/twodee/examples/complex/main.go	/^type Creature struct {$/;"	d
+Dispose	lib/twodee/framebuffer.go	/^func (fb *Framebuffer) Dispose() {$/;"	d
+Dispose	lib/twodee/texture.go	/^func (t *Texture) Dispose() {$/;"	d
+Draw	lib/twodee/element.go	/^func (e *Element) Draw() {$/;"	d
+Draw	lib/twodee/examples/complex/main.go	/^func (g *Game) Draw() {$/;"	d
+Draw	lib/twodee/framebuffer.go	/^func (fb *Framebuffer) Draw(w int, h int) {$/;"	d
+Draw	lib/twodee/sprite.go	/^func (s *Sprite) Draw() {$/;"	d
+Draw	src/game.go	/^func (g *Game) Draw() {$/;"	d
+Dx	lib/twodee/geometry.go	/^func (r Rectangle) Dx() float64 {$/;"	d
+Dy	lib/twodee/geometry.go	/^func (r Rectangle) Dy() float64 {$/;"	d
+Element	lib/twodee/element.go	/^type Element struct {$/;"	d
+EncodeTGA	lib/twodee/image.go	/^func EncodeTGA(name string, img image.Image) (buf *bytes.Buffer, err error) {$/;"	d
+Focus	lib/twodee/camera.go	/^func (c *Camera) Focus() Point {$/;"	d
+Font	lib/twodee/text.go	/^type Font struct {$/;"	d
+Framebuffer	lib/twodee/framebuffer.go	/^type Framebuffer struct {$/;"	d
+Game	lib/twodee/examples/complex/main.go	/^type Game struct {$/;"	d
+Game	src/game.go	/^type Game struct {$/;"	d
+GetAllChildren	lib/twodee/element.go	/^func (e *Element) GetAllChildren() []Node {$/;"	d
+GetBounds	src/level.go	/^func (l *Level) GetBounds() twodee.Rectangle {$/;"	d
+GetGLTexture	lib/twodee/texture.go	/^func GetGLTexture(img image.Image, smoothing int) (gltexture gl.Texture, err error) {$/;"	d
+GlobalBounds	lib/twodee/element.go	/^func (e *Element) GlobalBounds() Rectangle {$/;"	d
+Height	lib/twodee/element.go	/^func (e *Element) Height() float64 {$/;"	d
+In	lib/twodee/geometry.go	/^func (r Rectangle) In(s Rectangle) bool {$/;"	d
+Init	lib/twodee/system.go	/^func Init() (sys *System, err error) {$/;"	d
+Key	lib/twodee/system.go	/^func (s *System) Key(key int) int {$/;"	d
+KeyHandler	lib/twodee/system.go	/^type KeyHandler func(key int, state int)$/;"	d
+Len	lib/twodee/animation.go	/^func (a *Animation) Len() int {$/;"	d
+Level	src/level.go	/^type Level struct {$/;"	d
+LoadFont	lib/twodee/text.go	/^func LoadFont(path string, scale int32) (font *Font, err error) {$/;"	d
+LoadPNG	lib/twodee/texture.go	/^func LoadPNG(path string) (img image.Image, err error) {$/;"	d
+LoadTexture	lib/twodee/system.go	/^func (s *System) LoadTexture(name string, path string, inter int, width int) (err error) {$/;"	d
+LoadTexture	lib/twodee/texture.go	/^func LoadTexture(path string, smoothing int, framewidth int) (texture *Texture, err error) {$/;"	d
+LoadTiledMap	lib/twodee/map.go	/^func LoadTiledMap(system *System, loader MapLoader, path string) (err error) {$/;"	d
+LoadVarWidthTexture	lib/twodee/texture.go	/^func LoadVarWidthTexture(path string, smoothing int) (texture *Texture, err error) {$/;"	d
+MapLoader	lib/twodee/interfaces.go	/^type MapLoader interface {$/;"	d
+MatchRatio	lib/twodee/camera.go	/^func (c *Camera) MatchRatio(width int, height int) {$/;"	d
+MouseMoveHandler	lib/twodee/system.go	/^type MouseMoveHandler func(x int, y int)$/;"	d
+Move	lib/twodee/element.go	/^func (e *Element) Move(p Point) {$/;"	d
+MoveTo	lib/twodee/element.go	/^func (e *Element) MoveTo(p Point) {$/;"	d
+NewCamera	lib/twodee/camera.go	/^func NewCamera(x float64, y float64, w float64, h float64) (c *Camera) {$/;"	d
+NewCreature	lib/twodee/examples/complex/main.go	/^func NewCreature(sprite *twodee.Sprite) (c *Creature) {$/;"	d
+NewFramebuffer	lib/twodee/framebuffer.go	/^func NewFramebuffer(w int, h int) (fb *Framebuffer, err error) {$/;"	d
+NewGame	lib/twodee/examples/complex/main.go	/^func NewGame(system *twodee.System, window *twodee.Window, font *twodee.Font) (game *Game, err error) {$/;"	d
+NewGame	src/game.go	/^func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {$/;"	d
+NewSprite	lib/twodee/sprite.go	/^func (s *System) NewSprite(name string, x, y, w, h float64, t int) *Sprite {$/;"	d
+Next	lib/twodee/animation.go	/^func (a *Animation) Next() int {$/;"	d
+Node	lib/twodee/interfaces.go	/^type Node interface {$/;"	d
+Open	lib/twodee/system.go	/^func (s *System) Open(win *Window) (err error) {$/;"	d
+Opened	lib/twodee/window.go	/^func (w *Window) Opened() bool {$/;"	d
+Overlaps	lib/twodee/geometry.go	/^func (r Rectangle) Overlaps(s Rectangle) bool {$/;"	d
+Paint	lib/twodee/system.go	/^func (s *System) Paint(scene Visible) {$/;"	d
+Pan	lib/twodee/camera.go	/^func (c *Camera) Pan(x float64, y float64) {$/;"	d
+Parent	lib/twodee/element.go	/^func (e *Element) Parent() Node {$/;"	d
+Player	src/player.go	/^type Player struct {$/;"	d
+Point	lib/twodee/geometry.go	/^type Point struct {$/;"	d
+PrintError	lib/twodee/examples/basic/main.go	/^func PrintError(err error) {$/;"	d
+Printf	lib/twodee/text.go	/^func (f *Font) Printf(x float64, y float64, format string, a ...interface{}) (err error) {$/;"	d
+Pt	lib/twodee/geometry.go	/^func Pt(x float64, y float64) Point {$/;"	d
+Rect	lib/twodee/geometry.go	/^func Rect(x1 float64, y1 float64, x2 float64, y2 float64) Rectangle {$/;"	d
+Rectangle	lib/twodee/geometry.go	/^type Rectangle struct {$/;"	d
+RelativeBounds	lib/twodee/element.go	/^func (e *Element) RelativeBounds(n Node) Rectangle {$/;"	d
+RemoveChild	lib/twodee/element.go	/^func (e *Element) RemoveChild(node Node) {$/;"	d
+ResolveScreenCoords	lib/twodee/camera.go	/^func (c *Camera) ResolveScreenCoords(x, y, w, h int) (gx, gy float64) {$/;"	d
+Round	lib/twodee/util.go	/^func Round(a float64) float64 {$/;"	d
+Run	lib/twodee/examples/complex/main.go	/^func (g *Game) Run() {$/;"	d
+Run	src/game.go	/^func (g *Game) Run() (err error) {$/;"	d
+ScrollHandler	lib/twodee/system.go	/^type ScrollHandler func(pos int)$/;"	d
+SetBounds	lib/twodee/element.go	/^func (e *Element) SetBounds(r Rectangle) {$/;"	d
+SetBounds	lib/twodee/examples/complex/main.go	/^func (g *Game) SetBounds(rect twodee.Rectangle) {$/;"	d
+SetBounds	src/level.go	/^func (l *Level) SetBounds(rect twodee.Rectangle) {$/;"	d
+SetCharCallback	lib/twodee/system.go	/^func (s *System) SetCharCallback(handler CharHandler) {$/;"	d
+SetClearColor	lib/twodee/system.go	/^func (s *System) SetClearColor(r int, g int, b int, a int) {$/;"	d
+SetCloseCallback	lib/twodee/system.go	/^func (s *System) SetCloseCallback(handler CloseHandler) {$/;"	d
+SetFocus	lib/twodee/camera.go	/^func (c *Camera) SetFocus(x float64, y float64) {$/;"	d
+SetFont	lib/twodee/system.go	/^func (s *System) SetFont(font *Font) {$/;"	d
+SetFrame	lib/twodee/sprite.go	/^func (s *Sprite) SetFrame(frame int) {$/;"	d
+SetHeight	lib/twodee/element.go	/^func (e *Element) SetHeight(h float64) {$/;"	d
+SetKeyCallback	lib/twodee/system.go	/^func (s *System) SetKeyCallback(handler KeyHandler) {$/;"	d
+SetLimits	lib/twodee/camera.go	/^func (c *Camera) SetLimits(limits Rectangle) {$/;"	d
+SetMouseMoveCallback	lib/twodee/system.go	/^func (s *System) SetMouseMoveCallback(handler MouseMoveHandler) {$/;"	d
+SetParent	lib/twodee/element.go	/^func (e *Element) SetParent(node Node) {$/;"	d
+SetProjection	lib/twodee/camera.go	/^func (c *Camera) SetProjection() {$/;"	d
+SetScrollCallback	lib/twodee/system.go	/^func (s *System) SetScrollCallback(handler ScrollHandler) {$/;"	d
+SetSizeCallback	lib/twodee/system.go	/^func (s *System) SetSizeCallback(handler SizeHandler) {$/;"	d
+SetState	lib/twodee/examples/complex/main.go	/^func (c *Creature) SetState(state int) {$/;"	d
+SetVelocity	lib/twodee/sprite.go	/^func (s *Sprite) SetVelocity(pt Point) {$/;"	d
+SetWidth	lib/twodee/element.go	/^func (e *Element) SetWidth(w float64) {$/;"	d
+SetZ	lib/twodee/element.go	/^func (e *Element) SetZ(z float64) {$/;"	d
+Size	lib/twodee/geometry.go	/^func (r Rectangle) Size() Point {$/;"	d
+SizeHandler	lib/twodee/system.go	/^type SizeHandler func(w int, h int)$/;"	d
+Spatial	lib/twodee/interfaces.go	/^type Spatial interface {$/;"	d
+SpatialChanging	lib/twodee/interfaces.go	/^type SpatialChanging interface {$/;"	d
+SpatialVisible	lib/twodee/interfaces.go	/^type SpatialVisible interface {$/;"	d
+SpatialVisibleChanging	lib/twodee/interfaces.go	/^type SpatialVisibleChanging interface {$/;"	d
+Sprite	lib/twodee/sprite.go	/^type Sprite struct {$/;"	d
+Sub	lib/twodee/geometry.go	/^func (r Rectangle) Sub(p Point) Rectangle {$/;"	d
+System	lib/twodee/system.go	/^type System struct {$/;"	d
+Terminate	lib/twodee/system.go	/^func (s *System) Terminate() {$/;"	d
+TestMove	lib/twodee/sprite.go	/^func (s *Sprite) TestMove(dx float64, dy float64, r *Sprite) bool {$/;"	d
+Texture	lib/twodee/texture.go	/^type Texture struct {$/;"	d
+TiledLayer	lib/twodee/map.go	/^type TiledLayer struct {$/;"	d
+TiledMap	lib/twodee/map.go	/^type TiledMap struct {$/;"	d
+TiledTileset	lib/twodee/map.go	/^type TiledTileset struct {$/;"	d
+Unbind	lib/twodee/framebuffer.go	/^func (fb *Framebuffer) Unbind() {$/;"	d
+Unbind	lib/twodee/texture.go	/^func (t *Texture) Unbind() {$/;"	d
+Update	lib/twodee/examples/complex/main.go	/^func (c *Creature) Update() {$/;"	d
+Update	lib/twodee/examples/complex/main.go	/^func (g *Game) Update() {$/;"	d
+Update	lib/twodee/sprite.go	/^func (s *Sprite) Update() {$/;"	d
+Velocity	lib/twodee/sprite.go	/^func (s *Sprite) Velocity() Point {$/;"	d
+Visible	lib/twodee/interfaces.go	/^type Visible interface {$/;"	d
+Width	lib/twodee/element.go	/^func (e *Element) Width() float64 {$/;"	d
+Window	lib/twodee/window.go	/^type Window struct {$/;"	d
+X	lib/twodee/element.go	/^func (e *Element) X() float64 {$/;"	d
+Y	lib/twodee/element.go	/^func (e *Element) Y() float64 {$/;"	d
+Z	lib/twodee/element.go	/^func (e *Element) Z() float64 {$/;"	d
+Zoom	lib/twodee/camera.go	/^func (c *Camera) Zoom(incr float64) {$/;"	d
+addGravity	lib/twodee/examples/complex/main.go	/^func (g *Game) addGravity() {$/;"	d
+calcView	lib/twodee/camera.go	/^func (c *Camera) calcView() bool {$/;"	d
+checkCollisions	lib/twodee/examples/complex/main.go	/^func (g *Game) checkCollisions(subject twodee.Spatial) twodee.Spatial {$/;"	d
+checkKeys	lib/twodee/examples/complex/main.go	/^func (g *Game) checkKeys() {$/;"	d
+clamp	lib/twodee/system.go	/^func (s *System) clamp(i int, max int) gl.GLclampf {$/;"	d
+cpuprofile	lib/twodee/Makefile	/^	.\/example-basic -cpuprofile=$@$/;"	m
+creature	lib/twodee/examples/complex/main.go	/^		var creature = NewCreature(sprite)$/;"	d
+creature	src/level.go	/^		var creature = NewCreature(sprite)$/;"	d
+data	lib/twodee/texture.go	/^	var data *bytes.Buffer$/;"	d
+file	lib/twodee/texture.go	/^	var file *os.File$/;"	d
+gids	lib/twodee/map.go	/^	var gids = make([]int, len(tm.Tilesets))$/;"	d
+handleClose	lib/twodee/examples/complex/main.go	/^func (g *Game) handleClose() {$/;"	d
+handleClose	src/game.go	/^func (g *Game) handleClose() {$/;"	d
+handleKeys	lib/twodee/examples/complex/main.go	/^func (g *Game) handleKeys() {$/;"	d
+handleKeys	src/game.go	/^func (g *Game) handleKeys() {$/;"	d
+handleMouse	lib/twodee/examples/complex/main.go	/^func (g *Game) handleMouse() {$/;"	d
+handleResize	lib/twodee/examples/complex/main.go	/^func (g *Game) handleResize() {$/;"	d
+handleScroll	lib/twodee/examples/complex/main.go	/^func (g *Game) handleScroll() {$/;"	d
+init	lib/twodee/examples/basic/main.go	/^func init() {$/;"	d
+init	lib/twodee/examples/complex/main.go	/^func init() {$/;"	d
+init	src/main.go	/^func init() {$/;"	d
+main	lib/twodee/examples/basic/main.go	/^func main() {$/;"	d
+main	lib/twodee/examples/complex/main.go	/^func main() {$/;"	d
+main	src/main.go	/^func main() {$/;"	d
+memprofile	lib/twodee/Makefile	/^	.\/example-basic -memprofile=$@$/;"	m
+red	lib/twodee/scripts/setup_devel.sh	/^function red {$/;"	f
+resize	lib/twodee/system.go	/^func (s *System) resize() (err error) {$/;"	d
+row	lib/twodee/map.go	/^		var row, col, width, height float64$/;"	d
+sprite	lib/twodee/examples/complex/main.go	/^		var sprite = g.System.NewSprite(tileset, x, y, w, h, index)$/;"	d
+sprite	src/level.go	/^		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)$/;"	d
+texture	lib/twodee/system.go	/^	var texture *Texture$/;"	d
+ts	lib/twodee/map.go	/^		var ts TiledTileset$/;"	d
+tsi	lib/twodee/map.go	/^			var tsi = len(gids) - 1$/;"	d
+yellow	lib/twodee/scripts/setup_devel.sh	/^function yellow {$/;"	f
