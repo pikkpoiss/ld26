@@ -19,8 +19,23 @@ Running:
 
 TODO
 ----
-- [X] Wait for theme announcement
-- [X] Init library and open window
+
+    [X] Wait for theme announcement
+    [X] Init library and open window
+    [ ] Bootleg initial sprite work
+    [ ] Add load / swap level code
+    [ ] Bootleg test level
+    [ ] Handle button presses
+    [ ] Add planetoid object code
+    [ ] Collision detection
+    [ ] Scoring system
+    [ ] Lives system
+    [ ] End game state / screen
+    [ ] Intro screen
+    [ ] Level select screen?  Level progress at least
+    [ ] Production sprite work
+    [ ] Determine "standard" level structures
+    [ ] Build a track of levels of increasing difficulty
 
 Brainstorming
 -------------
