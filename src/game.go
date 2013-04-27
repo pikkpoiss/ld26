@@ -43,15 +43,17 @@ const (
 )
 
 type Game struct {
-	System  *twodee.System
-	Window  *twodee.Window
-	Camera  *twodee.Camera
-	Level   *Level
-	Splash  *twodee.Sprite
-	SelectMenu *Menu
-	state   int
-	exit    chan bool
-	closest SpatialVisibleStateful
+	System       *twodee.System
+	Window       *twodee.Window
+	Camera       *twodee.Camera
+	Level        *Level
+	Levels       []string
+	CurrentLevel int
+	Splash       *twodee.Sprite
+	SelectMenu   *Menu
+	state        int
+	exit         chan bool
+	closest      SpatialVisibleStateful
 }
 
 func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
@@ -62,8 +64,11 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		System: sys,
 		Window: win,
 		Camera: twodee.NewCamera(0, 0, 71, 40),
-		state:  STATE_SPLASH,
-		exit:   make(chan bool, 1),
+		Levels: []string{
+			"data/level-dev.json",
+		},
+		state: STATE_SPLASH,
+		exit:  make(chan bool, 1),
 	}
 	if err = sys.Open(win); err != nil {
 		err = fmt.Errorf("Couldn't open window: %v", err)
@@ -117,10 +122,7 @@ func (g *Game) handleKeys() {
 			case STATE_SPLASH:
 				g.state = STATE_SELECT
 			case STATE_SELECT:
-				level := NewLevel(g.System)
-				twodee.LoadTiledMap(g.System, level, "data/level-dev.json")
-				g.Level = level
-				g.state = STATE_GAME
+				g.SetLevel(g.SelectMenu.GetSelection())
 			}
 		case state == 0:
 			return
@@ -142,12 +144,27 @@ func (g *Game) handleKeys() {
 	})
 }
 
+func (g *Game) SetLevel(i int) {
+	var (
+		index = (i + len(g.Levels)) % len(g.Levels)
+		path  = g.Levels[index]
+		level = NewLevel(g.System)
+	)
+	twodee.LoadTiledMap(g.System, level, path)
+	g.Level = level
+	g.CurrentLevel = index
+	g.state = STATE_GAME
+}
+
 func (g *Game) Run() (err error) {
 	go func() {
 		update := time.NewTicker(time.Second / time.Duration(UPDATE_HZ))
 		for true {
 			<-update.C
 			if g.Level == nil {
+				continue
+			}
+			if g.state != STATE_GAME {
 				continue
 			}
 			if g.closest != nil {

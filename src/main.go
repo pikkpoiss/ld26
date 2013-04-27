@@ -16,6 +16,7 @@ package main
 
 import (
 	"../lib/twodee"
+	"flag"
 	"log"
 	"runtime"
 )
@@ -32,6 +33,8 @@ func main() {
 		window *twodee.Window
 		system *twodee.System
 	)
+	var level = flag.Int("level", -1, "Skip to a level")
+	flag.Parse()
 	if system, err = twodee.Init(); err != nil {
 		log.Fatalf("Couldn't init system: %v\n", err)
 	}
@@ -39,6 +42,9 @@ func main() {
 	window = &twodee.Window{Width: 1136, Height: 640, Scale: 1}
 	if game, err = NewGame(system, window); err != nil {
 		log.Fatalf("Couldn't start game: %v\n", err)
+	}
+	if *level != -1 {
+		game.SetLevel(*level)
 	}
 	if err = game.Run(); err != nil {
 		log.Fatalf("Exiting: %v\n", err)
