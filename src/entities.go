@@ -14,7 +14,9 @@
 
 package main
 
-import ()
+import (
+	"../lib/twodee"
+)
 
 // Mob represents a mobile sprite in the game.
 type Mob struct {
@@ -27,4 +29,26 @@ func NewMob(sprite *Sprite) *Mob {
 		Sprite: sprite,
 	}
 	return m
+}
+
+type GravityWell struct {
+	*Sprite
+}
+
+func NewGravityWell(sprite *twodee.Sprite) *GravityWell {
+	return &GravityWell{
+		Sprite: NewSprite(sprite),
+	}
+}
+
+func (g *GravityWell) SetState(state int) {
+	g.Sprite.SetState(state)
+	switch state {
+	case STATE_NORMAL:
+		g.Sprite.SetFrame(3)
+	case STATE_CLOSEST:
+		g.Sprite.SetFrame(4)
+	case STATE_ATTACHED:
+		g.Sprite.SetFrame(5)
+	}
 }

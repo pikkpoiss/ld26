@@ -20,6 +20,14 @@ import (
 
 type Sprite struct {
 	*twodee.Sprite
+	state int
+}
+
+func NewSprite(sprite *twodee.Sprite) *Sprite {
+	return &Sprite{
+		Sprite: sprite,
+		state: STATE_NORMAL,
+	}
 }
 
 // Centroid returns the Point at the center of this sprite.
@@ -27,4 +35,12 @@ func (s *Sprite) Centroid() twodee.Point {
 	var b = s.Sprite.Bounds()
 	var p = twodee.Pt(b.Min.X+(b.Max.X-b.Min.X)/2.0, b.Min.Y+(b.Max.Y-b.Min.Y)/2.0)
 	return p
+}
+
+func (s *Sprite) SetState(state int) {
+	s.state = state
+}
+
+func (s *Sprite) State() int {
+	return s.state
 }

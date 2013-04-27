@@ -33,3 +33,14 @@ type SpatialVisibleMovable interface {
 	twodee.Visible
 	MoveToward(s Spatial)
 }
+
+type Stateful interface {
+	SetState(int)
+	State() int
+}
+
+type SpatialVisibleStateful interface {
+	SpatialVisible
+	Stateful
+}
+

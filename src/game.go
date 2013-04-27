@@ -35,6 +35,12 @@ const (
 	STATE_GAME
 )
 
+const (
+	STATE_NORMAL = iota
+	STATE_CLOSEST
+	STATE_ATTACHED
+)
+
 type Game struct {
 	System  *twodee.System
 	Window  *twodee.Window
@@ -43,7 +49,7 @@ type Game struct {
 	Splash  *twodee.Sprite
 	state   int
 	exit    chan bool
-	closest *Sprite
+	closest SpatialVisibleStateful
 }
 
 func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
@@ -93,6 +99,7 @@ func (g *Game) checkKeys() {
 		// Handle player shit
 		switch g.state {
 		case STATE_GAME:
+			g.closest.SetState(STATE_ATTACHED)
 			g.Level.Player.MoveToward(g.closest)
 		}
 	}
@@ -122,10 +129,10 @@ func (g *Game) Run() (err error) {
 		for true {
 			<-update.C
 			if g.closest != nil {
-				g.closest.SetFrame(3)
+				g.closest.SetState(STATE_NORMAL)
 			}
-			g.closest = g.Level.GetClosestEntity(g.Level.Player.Sprite).(*Sprite)
-			g.closest.SetFrame(4)
+			g.closest = g.Level.GetClosestAttachable(g.Level.Player.Sprite)
+			g.closest.SetState(STATE_CLOSEST)
 			g.checkKeys()
 			if g.Level.Player != nil {
 				g.Level.Player.Update()
