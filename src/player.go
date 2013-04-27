@@ -14,7 +14,9 @@
 
 package main
 
-import ()
+import (
+	"math"
+)
 
 type Player struct {
 	*Sprite
@@ -22,11 +24,23 @@ type Player struct {
 }
 
 // IncreaseVelocityTowardsEntity computes a new velocity vector for p.
-func (p *Player) IncreaseVelocityTowardsEntity(s *Sprite) {
+func (p *Player) MoveToward(s *Sprite) {
 	var (
 		pc = p.Centroid()
 		sc = s.Centroid()
+		dx = (sc.X - pc.X)
+		dy = (sc.Y - pc.Y)
+		vx = math.Max(0.1, 5-math.Abs(dx)/10.0)
+		vy = math.Max(0.1, 5-math.Abs(dy)/10.0)
 	)
-	p.VelocityX = (sc.X - pc.X) / 10.0
-	p.VelocityY = (sc.Y - pc.Y) / 10.0
+	if math.Signbit(dx) {
+		p.VelocityX = -vx
+	} else {
+		p.VelocityX = vx
+	}
+	if math.Signbit(dy) {
+		p.VelocityY = -vy
+	} else {
+		p.VelocityY = vy
+	}
 }

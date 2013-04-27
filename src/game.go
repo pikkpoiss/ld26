@@ -90,6 +90,11 @@ func (g *Game) checkKeys() {
 	switch {
 	case g.System.Key(twodee.KeySpace) == 1:
 		// Handle player shit
+		switch g.state {
+		case STATE_GAME:
+			var e = g.Level.GetClosestEntity(g.Level.Player)
+			g.Level.Player.MoveToward(e)
+		}
 	}
 }
 
@@ -99,7 +104,8 @@ func (g *Game) handleKeys() {
 		case state == 0:
 			return
 		case key == twodee.KeySpace:
-			if g.state == STATE_SPLASH {
+			switch g.state {
+			case STATE_SPLASH:
 				g.state = STATE_GAME
 			}
 		case key == twodee.KeyEsc:

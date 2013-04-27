@@ -118,7 +118,7 @@ func (l *Level) Draw() {
 }
 
 // GetClosestEntityToPLayer returns the closest spatial entity to the player.
-func (l *Level) GetClosestEntityToPlayer() twodee.Spatial {
+func (l *Level) GetClosestEntity(p twodee.Spatial) twodee.Spatial {
 	// p := l.Player.Centroid()
 	return nil
 }
