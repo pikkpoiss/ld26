@@ -21,26 +21,21 @@ import (
 type Spatial interface {
 	Centroid() twodee.Point
 	twodee.Spatial
-}
-
-type SpatialVisible interface {
-	Spatial
 	twodee.Visible
 }
 
-type SpatialVisibleMovable interface {
+type Moveable interface {
 	Spatial
-	twodee.Visible
 	MoveToward(s Spatial)
 }
 
 type Stateful interface {
+	Spatial
 	SetState(int)
 	State() int
 }
 
-type SpatialVisibleStateful interface {
-	SpatialVisible
-	Stateful
+type Colliding interface {
+	Spatial
+	Collision(p *Player)
 }
-

@@ -35,20 +35,22 @@ const (
 // particular map.
 type Level struct {
 	System      *twodee.System
-	Entities    map[SpatialClass][]SpatialVisibleStateful
+	Entities    map[SpatialClass][]*Sprite
 	levelBounds twodee.Rectangle
 	Player      *Player
+	wells       []*GravityWell
 }
 
 // NewLevel constructs a Level struct and returns it.
 func NewLevel(s *twodee.System) *Level {
 	return &Level{
 		System: s,
-		Entities: map[SpatialClass][]SpatialVisibleStateful{
-			CIRCLE:  make([]SpatialVisibleStateful, 0),
-			BOX:     make([]SpatialVisibleStateful, 0),
-			DYNAMIC: make([]SpatialVisibleStateful, 0),
+		Entities: map[SpatialClass][]*Sprite{
+			CIRCLE:  make([]*Sprite, 0),
+			BOX:     make([]*Sprite, 0),
+			DYNAMIC: make([]*Sprite, 0),
 		},
+		wells: make([]*GravityWell, 0),
 	}
 }
 
@@ -65,9 +67,9 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 			l.Player = &Player{sprite}
 			sprite.SetFrame(index)
 		} else {
-			var sprite = NewGravityWell(l.System.NewSprite(tileset, x, y, w, h, index))
-			l.Entities[CIRCLE] = append(l.Entities[CIRCLE], sprite)
-			sprite.SetFrame(index)
+			var well = NewGravityWell(l.System.NewSprite(tileset, x, y, w, h, index))
+			l.wells = append(l.wells, well)
+			well.SetFrame(index)
 		}
 	case "sprites16":
 		var sprite = NewSprite(l.System.NewSprite(tileset, x, y, w, h, index))
@@ -90,7 +92,7 @@ func (l *Level) GetBounds() twodee.Rectangle {
 }
 
 // GetCollision returns whatever spatial s first collides with in the level.
-func (l *Level) GetCollision(s twodee.Spatial) twodee.Spatial {
+func (l *Level) GetCollision(s twodee.Spatial) Spatial {
 	r := s.Bounds()
 	for _, e := range l.Entities[BOX] {
 		if s == e {
@@ -110,6 +112,9 @@ func (l *Level) Draw() {
 			e.Draw()
 		}
 	}
+	for _, e := range l.wells {
+		e.Draw()
+	}
 	l.Player.Draw()
 }
 
@@ -118,11 +123,11 @@ func (l *Level) Restart() {
 }
 
 // GetClosestEntity returns the closest CIRCLE type entity to the given entity.
-func (l *Level) GetClosestAttachable(s Spatial) SpatialVisibleStateful {
+func (l *Level) GetClosestAttachable(s Spatial) Stateful {
 	p := s.Centroid()
 	ld := math.MaxFloat64
-	var ce SpatialVisibleStateful = nil
-	for _, e := range l.Entities[CIRCLE] {
+	var ce Stateful = nil
+	for _, e := range l.wells {
 		if s == e {
 			continue
 		}

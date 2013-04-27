@@ -56,7 +56,7 @@ type Game struct {
 	state        int
 	laststate    int
 	exit         chan bool
-	closest      SpatialVisibleStateful
+	closest      Stateful
 }
 
 func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
