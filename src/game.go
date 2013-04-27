@@ -233,7 +233,6 @@ func (g *Game) Run() (err error) {
 			if g.Level.Player != nil {
 				g.Level.Player.Update()
 				if c := g.Level.GetCollision(g.Level.Player); c != nil {
-					g.Level.Player.SignalCollision()
 					c.Collision(g.Level.Player)
 				}
 			}
