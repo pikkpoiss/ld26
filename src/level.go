@@ -22,11 +22,18 @@ import (
 // Need to load a level, call something like this:
 // twodee.LoadTiledMap(system, level, "examples/complex/levels/level01.json");
 
+type SpatialClass int
+
+const (
+	STATIC SpatialClass = iota
+	DYNAMIC
+)
+
 // Level describes a particular set of static and dynamic sprites that make up a
 // particular map.
 type Level struct {
 	System      *twodee.System
-	Entities    map[string][]twodee.SpatialVisible
+	Entities    map[SpatialClass][]twodee.SpatialVisible
 	levelBounds twodee.Rectangle
 	player      *Player
 }
@@ -39,12 +46,12 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	// Keep track of player sprite and just mark starting location.
 	switch tileset {
 	case "tilegame":
-		static := l.Entities["static"]
+		static := l.Entities[STATIC]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		sprite.SetFrame(index)
 		static = append(static, sprite)
 	case "character-textures":
-		dynamic := l.Entities["dynamic"]
+		dynamic := l.Entities[DYNAMIC]
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		mob := NewMob(sprite)
 		mob.SetFrame(index)
