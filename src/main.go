@@ -43,4 +43,5 @@ func main() {
 	if err = game.Run(); err != nil {
 		log.Fatalf("Exiting: %v\n", err)
 	}
+	log.Printf("Exiting peacefully")
 }
