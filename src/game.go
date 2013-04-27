@@ -27,7 +27,7 @@ const (
 	BG_R      int = 0
 	BG_G      int = 0
 	BG_B      int = 0
-	BG_A      int = 255
+	BG_A      int = 0
 )
 
 type Game struct {
