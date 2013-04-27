@@ -72,6 +72,13 @@ func (g *Game) handleClose() {
 	})
 }
 
+func (g *Game) checkKeys() {
+	switch {
+	case g.System.Key(twodee.KeySpace) == 1:
+		// Handle player shit
+	}
+}
+
 func (g *Game) handleKeys() {
 	g.System.SetKeyCallback(func(key int, state int) {
 		switch {
@@ -90,6 +97,7 @@ func (g *Game) Run() (err error) {
 		update := time.NewTicker(time.Second / time.Duration(UPDATE_HZ))
 		for true {
 			<-update.C
+			g.checkKeys()
 		}
 	}()
 	running := true
