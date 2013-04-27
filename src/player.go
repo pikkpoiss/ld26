@@ -29,17 +29,10 @@ func (p *Player) MoveToward(s *Sprite) {
 		sc = s.Centroid()
 		dx = (sc.X - pc.X)
 		dy = (sc.Y - pc.Y)
-		vx = 0.1 - math.Abs(dx) / 1000.0
-		vy = 0.1 - math.Abs(dy) / 1000.0
+		h  = math.Hypot(dx, dy)
+		vx = 0.2 * dx / h
+		vy = 0.2 * dy / h
 	)
-	if math.Signbit(dx) {
-		p.VelocityX = -vx
-	} else {
-		p.VelocityX = vx
-	}
-	if math.Signbit(dy) {
-		p.VelocityY = -vy
-	} else {
-		p.VelocityY = vy
-	}
+	p.VelocityX += (vx - p.VelocityX) / 30
+	p.VelocityY += (vy - p.VelocityY) / 30
 }
