@@ -43,6 +43,11 @@ type Level struct {
 func NewLevel(s *twodee.System) *Level {
 	return &Level{
 		System: s,
+		Entities: map[SpatialClass][]twodee.SpatialVisible{
+			CIRCLE:  make([]twodee.SpatialVisible, 0),
+			BOX:     make([]twodee.SpatialVisible, 0),
+			DYNAMIC: make([]twodee.SpatialVisible, 0),
+		},
 	}
 }
 
