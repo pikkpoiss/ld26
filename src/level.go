@@ -30,16 +30,11 @@ const (
 	DYNAMIC
 )
 
-type GameSpatialVisible interface {
-	twodee.SpatialVisible
-	Centroid() twodee.Point
-}
-
 // Level describes a particular set of static and dynamic sprites that make up a
 // particular map.
 type Level struct {
 	System      *twodee.System
-	Entities    map[SpatialClass][]twodee.SpatialVisible
+	Entities    map[SpatialClass][]Sprite
 	levelBounds twodee.Rectangle
 	Player      *Player
 }
@@ -48,10 +43,10 @@ type Level struct {
 func NewLevel(s *twodee.System) *Level {
 	return &Level{
 		System: s,
-		Entities: map[SpatialClass][]twodee.SpatialVisible{
-			CIRCLE:  make([]twodee.SpatialVisible, 0),
-			BOX:     make([]twodee.SpatialVisible, 0),
-			DYNAMIC: make([]twodee.SpatialVisible, 0),
+		Entities: map[SpatialClass][]Sprite{
+			CIRCLE:  make([]Sprite, 0),
+			BOX:     make([]Sprite, 0),
+			DYNAMIC: make([]Sprite, 0),
 		},
 	}
 }
@@ -117,8 +112,20 @@ func (l *Level) Draw() {
 	}
 }
 
-// GetClosestEntityToPLayer returns the closest spatial entity to the player.
-func (l *Level) GetClosestEntity(p twodee.Spatial) twodee.Spatial {
-	// p := l.Player.Centroid()
-	return nil
+// GetClosestEntity returns the closest CIRCLE type entity to the given entity.
+func (l *Level) GetClosestEntity(s *Sprite) twodee.Spatial {
+	p := s.Centroid()
+	ld := math.MaxFloat64
+	ce := nil
+	for _, e := range l.Entities[CIRCLE] {
+		if s == e {
+			continue
+		}
+		ep := e.Centroid()
+		if d := math.Hypot(p.X-ep.X, p.Y-ep.Y); d < ld {
+			ld = d
+			ce = e
+		}
+	}
+	return ce
 }
