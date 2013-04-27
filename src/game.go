@@ -30,11 +30,18 @@ const (
 	BG_A      int = 0
 )
 
+const (
+	STATE_SPLASH = iota
+	STATE_GAME
+)
+
 type Game struct {
 	System *twodee.System
 	Window *twodee.Window
 	Camera *twodee.Camera
 	Level  *Level
+	Splash *twodee.Sprite
+	state  int
 	exit   chan bool
 }
 
@@ -46,16 +53,23 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		System: sys,
 		Window: win,
 		Camera: twodee.NewCamera(0, 0, 71, 40),
+		state:  STATE_SPLASH,
 		exit:   make(chan bool, 1),
 	}
 	if err = sys.Open(win); err != nil {
 		err = fmt.Errorf("Couldn't open window: %v", err)
 		return
 	}
+	if err = sys.LoadTexture("splash", "data/splash.png", twodee.IntNearest, 1136); err != nil {
+		err = fmt.Errorf("Couldn't load texture: %v", err)
+		return
+	}
 	if font, err = twodee.LoadFont("data/slkscr.ttf", 24); err != nil {
 		err = fmt.Errorf("Couldn't load font: %v", err)
 		return
 	}
+	game.Splash = game.System.NewSprite("splash", 0, 0, 71, 40, 0)
+	game.Splash.SetTextureHeight(640)
 	game.handleKeys()
 	game.handleClose()
 	game.System.SetFont(font)
@@ -84,6 +98,10 @@ func (g *Game) handleKeys() {
 		switch {
 		case state == 0:
 			return
+		case key == twodee.KeySpace:
+			if g.state == STATE_SPLASH {
+				g.state = STATE_GAME
+			}
 		case key == twodee.KeyEsc:
 			g.exit <- true
 		default:
@@ -117,5 +135,9 @@ func (g *Game) Run() (err error) {
 
 func (g *Game) Draw() {
 	g.Camera.SetProjection()
-	g.Level.Draw()
+	if g.state == STATE_SPLASH {
+		g.Splash.Draw()
+	} else {
+		g.Level.Draw()
+	}
 }
