@@ -168,9 +168,9 @@ func (g *Game) handleKeys() {
 		case STATE_OPTION:
 			g.handleMenuKey(g.OptionMenu, key, state)
 			switch {
-			case key == twodee.KeyEnter && state == 0:
+			case key == twodee.KeyEnter && state == 1:
 				fallthrough
-			case key == twodee.KeySpace && state == 0:
+			case key == twodee.KeySpace && state == 1:
 				sel := g.OptionMenu.GetSelection()
 				switch sel {
 				case 0:
@@ -181,17 +181,17 @@ func (g *Game) handleKeys() {
 					}
 					g.state = g.laststate
 				}
-			case key == twodee.KeyEsc && state == 0:
+			case key == twodee.KeyEsc && state == 1:
 				g.state = g.laststate
 			}
 		case STATE_SELECT:
 			g.handleMenuKey(g.SelectMenu, key, state)
 			switch {
-			case key == twodee.KeyEnter && state == 0:
+			case key == twodee.KeyEnter && state == 1:
 				fallthrough
-			case key == twodee.KeySpace && state == 0:
+			case key == twodee.KeySpace && state == 1:
 				g.SetLevel(g.SelectMenu.GetSelection())
-			case key == twodee.KeyEsc && state == 0:
+			case key == twodee.KeyEsc && state == 1:
 				g.OptionMenu.SetSelection(0)
 				g.OptionMenu.SetSelectable(1, false)
 				g.laststate = g.state
@@ -206,11 +206,11 @@ func (g *Game) handleKeys() {
 			fallthrough
 		case STATE_SPLASH:
 			switch {
-			case key == twodee.KeyEnter && state == 0:
+			case key == twodee.KeyEnter && state == 1:
 				fallthrough
-			case key == twodee.KeySpace && state == 0:
+			case key == twodee.KeySpace && state == 1:
 				g.state = STATE_SELECT
-			case key == twodee.KeyEsc && state == 0:
+			case key == twodee.KeyEsc && state == 1:
 				g.OptionMenu.SetSelection(0)
 				g.OptionMenu.SetSelectable(1, false)
 				g.laststate = g.state
@@ -218,18 +218,18 @@ func (g *Game) handleKeys() {
 			}
 		case STATE_GAME:
 			switch {
-			case key == twodee.KeyEsc && state == 0:
+			case key == twodee.KeyEsc && state == 1:
 				g.OptionMenu.SetSelectable(1, true)
 				g.OptionMenu.SetSelection(1)
 				g.laststate = g.state
 				g.state = STATE_OPTION
-			case key == 80 && state == 0: // p
+			case key == 80 && state == 1: // p
 				g.handleWin()
 			default:
 			}
 		case STATE_SUMMARY:
 			switch {
-			case state == 0:
+			case state == 1:
 				if g.CurrentLevel+1 == len(g.Levels) {
 					g.state = STATE_WIN
 					g.Splash.SetFrame(2)
@@ -251,6 +251,7 @@ func (g *Game) SetLevel(i int) {
 	g.Level = level
 	g.CurrentLevel = index
 	g.SelectMenu.SetSelectable(g.CurrentLevel, true)
+	g.SelectMenu.SetSelection(g.CurrentLevel)
 	g.state = STATE_GAME
 }
 

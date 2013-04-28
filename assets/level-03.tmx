@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="71" height="40" tilewidth="16" tileheight="16">
  <properties>
-  <property name="time1" value="50"/>
-  <property name="time2" value="20"/>
-  <property name="time3" value="9"/>
+  <property name="time1" value="10"/>
+  <property name="time2" value="7"/>
+  <property name="time3" value="6"/>
  </properties>
  <tileset firstgid="1" name="sprites32" tilewidth="32" tileheight="32">
   <image source="../data/sprites32.png" width="256" height="32"/>
@@ -13,7 +13,7 @@
  </tileset>
  <layer name="Tile Layer 1" width="71" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt2DEKwzAQRUEF0iS5/33TuAvfOCBZ8noGthMuHiswag0A7uu9Db+0ybTJtMm0ybTJKrR5DPrujDbPA2deYdBmz6g2R3Z2dfYm693mc9HRRhtttNFm/pzRphJtspltVv93tjdZ1TY93j2u1OafO1jhvWwUbTJtMm0ybTJtMm2Aar730RCO
+   eJztmF0LwyAMRTvYy7b//3/HYEIQP5KYqyncAz51Jtcz20qvixBCCCFkzqcaqLqoPkgQuWdeMvmROd7/Ia9FZdc6yeKmzmFxY8lv9XLaTSuH1Y1mDR4vJ930cnjcjNbh9bLi5rEw9xrk2OlmNkfy6gwvlszaelFuNL0k2d205nnceEC6eTauefOuuPGCcNPKE5W3VWP0H6yAcoN8T45qRfaJdvNjx/Mz+h3WAuGml8Ga97RPlBstmnsw+j7U9jnpRps38vl9BzeatUf4WfG/8+w3yhvx24g+kl3nm/p6L/PsvKh1431OS5DnG01WxL5Z6SM5cfZDutH26e1PSQY31pqF6O+F2dx46haQ35kRRDtp1S9o3GQC6aVm5iYju/b2yE1mTuzvO3ghhBBCdvIF66gbAA==
   </data>
  </layer>
 </map>
