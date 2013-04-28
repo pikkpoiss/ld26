@@ -70,9 +70,16 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		Camera: twodee.NewCamera(0, 0, 71, 40),
 		Levels: []string{
 			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
 		},
-		state: STATE_SPLASH,
-		exit:  make(chan bool, 1),
+		CurrentLevel: 0,
+		state:        STATE_SPLASH,
+		exit:         make(chan bool, 1),
 	}
 	if err = sys.Open(win); err != nil {
 		err = fmt.Errorf("Couldn't open window: %v", err)
@@ -97,7 +104,6 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		return
 	}
 	game.SelectMenu.SetSelectable(0, true)
-	game.SelectMenu.SetSelectable(1, true)
 	game.OptionMenu = NewMenu(game.System)
 	log.Printf("Loading option menu\n")
 	if err = twodee.LoadTiledMap(game.System, game.OptionMenu, "data/menu-options.json"); err != nil {
@@ -180,6 +186,7 @@ func (g *Game) handleKeys() {
 			case key == twodee.KeySpace && state == 0:
 				g.SetLevel(g.SelectMenu.GetSelection())
 			case key == twodee.KeyEsc && state == 0:
+				g.OptionMenu.SetSelection(0)
 				g.OptionMenu.SetSelectable(1, false)
 				g.laststate = g.state
 				g.state = STATE_OPTION
@@ -191,6 +198,7 @@ func (g *Game) handleKeys() {
 			case key == twodee.KeySpace && state == 0:
 				g.state = STATE_SELECT
 			case key == twodee.KeyEsc && state == 0:
+				g.OptionMenu.SetSelection(0)
 				g.OptionMenu.SetSelectable(1, false)
 				g.laststate = g.state
 				g.state = STATE_OPTION
@@ -281,26 +289,31 @@ func (g *Game) Run() (err error) {
 
 func (g *Game) Draw() {
 	var (
-		now time.Time
-		fps float64
+		now    = time.Now()
+		fps    = 1.0 / now.Sub(g.lastpaint).Seconds()
+		option = false
+		state  = g.state
 	)
-	now = time.Now()
-	fps = 1.0 / now.Sub(g.lastpaint).Seconds()
-
 	g.Camera.SetProjection()
-	switch g.state {
+	if state == STATE_OPTION {
+		state = g.laststate
+		option = true
+	}
+	switch state {
 	case STATE_SPLASH:
 		g.Splash.Draw()
 	case STATE_SELECT:
 		g.SelectMenu.Draw()
 	case STATE_SUMMARY:
 		g.Summary.Draw()
-	default:
+	case STATE_GAME:
 		if g.Level != nil {
 			g.Level.Draw()
 			g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
 			g.Font.Printf(0, 10, "FPS %.1f", fps)
 		}
+	}
+	if option {
 		if g.state == STATE_OPTION {
 			g.OptionMenu.Draw()
 		}
