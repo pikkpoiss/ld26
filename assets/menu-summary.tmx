@@ -4,7 +4,7 @@
   <image source="../data/options16.png" width="32" height="16"/>
  </tileset>
  <tileset firstgid="3" name="targets" tilewidth="256" tileheight="64">
-  <image source="options256.png" width="2048" height="64"/>
+ <image source="../data/options256.png" width="2048" height="64"/>
  </tileset>
  <tileset firstgid="11" name="summary128" tilewidth="128" tileheight="128">
   <image source="../data/summary128.png" width="512" height="128"/>
@@ -16,7 +16,7 @@
  </layer>
  <layer name="Tile Layer 2" width="71" height="40">
   <data encoding="base64" compression="zlib">
-   eJztyaEBAAAMAiD7/v93T2iDSgIAAAAAAAAAwNqNHwAAWh6KiwAi
+   eJztyaEBAAAIA6At+/+/PqGNQKJJCgAAAAAAAADAq3l+AAC4srPRCzc=
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="71" height="40">

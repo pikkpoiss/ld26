@@ -46,7 +46,7 @@
         }, 
         {
          "firstgid":3,
-         "image":"..\/assets\/options256.png",
+         "image":"options256.png",
          "imageheight":64,
          "imagewidth":2048,
          "margin":0,
