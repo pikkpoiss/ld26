@@ -80,7 +80,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		err = fmt.Errorf("Couldn't load texture: %v", err)
 		return
 	}
-	if game.Font, err = twodee.LoadFont("data/slkscr.ttf", 24); err != nil {
+	if game.Font, err = twodee.LoadFont("data/slkscr.ttf", 32); err != nil {
 		err = fmt.Errorf("Couldn't load font: %v", err)
 		return
 	}
@@ -269,8 +269,8 @@ func (g *Game) Draw() {
 		if g.Level != nil {
 			g.Level.Draw()
 		}
-		g.Font.Printf(0, 10, "FPS %6.1f", fps)
-		g.Font.Printf(0, 40, "%6.1f seconds", g.Level.Player.Elapsed.Seconds())
+		g.Font.Printf(0, 10, "FPS %.1f", fps)
+		g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
 		if g.state == STATE_OPTION {
 			g.OptionMenu.Draw()
 		}
