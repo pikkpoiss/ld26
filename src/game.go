@@ -259,6 +259,7 @@ func (g *Game) Run() (err error) {
 			if g.Level == nil {
 				continue
 			}
+			g.Level.Update()
 			if g.state != STATE_GAME {
 				continue
 			}

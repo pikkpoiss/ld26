@@ -30,6 +30,7 @@ type Spatial interface {
 	Centroid() twodee.Point
 	twodee.Spatial
 	twodee.Visible
+	Update()
 }
 
 type Moveable interface {

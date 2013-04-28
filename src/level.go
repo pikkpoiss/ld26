@@ -133,3 +133,9 @@ func (l *Level) GetClosestAttachable(s Spatial) Attachable {
 	}
 	return ce
 }
+
+func (l *Level) Update() {
+	for _, e := range l.zones {
+		e.Update()
+	}
+}

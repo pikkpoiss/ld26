@@ -57,8 +57,14 @@ func (g *GravityWell) Spin() SpinOption {
 	return NOSPIN
 }
 
+const (
+	ZONE_NORMAL = iota
+)
+
 type Zone struct {
 	*Sprite
+	frames  map[int]*twodee.Animation
+	state int
 }
 
 type BounceZone Zone
@@ -78,9 +84,17 @@ type VictoryZone Zone
 func NewVictoryZone(sprite *twodee.Sprite) *VictoryZone {
 	return &VictoryZone{
 		Sprite: NewSprite(sprite),
+		frames: map[int]*twodee.Animation{
+			ZONE_NORMAL: twodee.Anim([]int{0, 4, 5, 6, 5, 4}, 16),
+		},
 	}
 }
 
 func (z *VictoryZone) Collision(p *Player) {
 	p.SetWon(true)
+}
+
+func (z *VictoryZone) Update() {
+	z.SetFrame(z.frames[z.state].Next())
+	z.Sprite.Update()
 }
