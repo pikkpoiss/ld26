@@ -46,6 +46,8 @@ TODO
     [X] Show level scores on selection screen
     [X] Handle screen resize or prevent screen resize
     [X] Make blue regions hurt you instead of bouncing
+    [ ] Take damage if you're offscreen
+    [ ] Restart if the damage gets too high
     [ ] Save / load level scores / progress
     [ ] Determine "standard" level structures
     [ ] Build a track of levels of increasing difficulty
