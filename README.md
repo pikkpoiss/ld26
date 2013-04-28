@@ -9,7 +9,10 @@ Instructions
 ------------
 Starting:
 
-    brew install sdl_mixer
+    brew install libogg libvorbis
+    brew install sdl sdl_image
+    brew install sdl_mixer --with-libvorbis  // Flag might be unnecessary.
+    // Maybe `export LD_LIBRARY_PATH=/Users/wesgoodman/Development/homebrew/lib`
     git clone ...
     git submodule init
     git submodule update
