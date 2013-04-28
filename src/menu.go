@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"log"
 	"sort"
-	"time"
 )
 
 const (
@@ -164,7 +163,7 @@ func (m *Menu) GetSelection() int {
 type LevelSelect struct {
 	*Menu
 	scores []*Score
-	star *Sprite
+	star   *Sprite
 }
 
 func NewLevelSelect(s *twodee.System, levels int) *LevelSelect {
@@ -208,13 +207,10 @@ type Summary struct {
 	pointTime   twodee.Point
 	pointLevel  twodee.Point
 	pointDamage twodee.Point
-	time        time.Duration
-	level       int
-	damage      float64
+	score       *Score
 	width       float64
 	height      float64
 	window      *twodee.Window
-	numstars    int
 }
 
 func NewSummary(s *twodee.System, font *twodee.Font, win *twodee.Window) *Summary {
@@ -222,8 +218,6 @@ func NewSummary(s *twodee.System, font *twodee.Font, win *twodee.Window) *Summar
 		system: s,
 		font:   font,
 		window: win,
-		level:  0,
-		damage: 0,
 	}
 }
 
@@ -269,20 +263,18 @@ func (s *Summary) Draw() {
 	}
 	var pt twodee.Point
 	pt = s.textCoords(s.pointTime)
-	s.font.Printf(pt.X, pt.Y, "%.1f seconds", s.time.Seconds())
+	s.font.Printf(pt.X, pt.Y, "%.1f seconds", s.score.Time.Seconds())
 	pt = s.textCoords(s.pointLevel)
-	s.font.Printf(pt.X, pt.Y, "Level %v", s.level)
+	s.font.Printf(pt.X, pt.Y, "Level %v", s.score.Level)
 	pt = s.textCoords(s.pointDamage)
-	str := fmt.Sprintf("Damage taken %.0f", s.damage*100.0)
+	str := fmt.Sprintf("Damage taken %.0f", s.score.Damage*100.0)
 	s.font.Printf(pt.X, pt.Y, str)
 }
 
 func (s *Summary) SetMetrics(score *Score) {
-	s.level = score.Level
-	s.time = score.Time
-	s.numstars = score.Stars
+	s.score = score
 	for i := 0; i < len(s.stars); i++ {
-		if i < s.numstars {
+		if i < s.score.Stars {
 			s.stars[i].SetFrame(1)
 		} else {
 			s.stars[i].SetFrame(0)

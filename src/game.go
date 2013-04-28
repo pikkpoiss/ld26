@@ -218,7 +218,6 @@ func (g *Game) handleKeys() {
 			case key == 80 && state == 0: // p
 				g.handleWin()
 			default:
-				log.Printf("Key: %v %v\n", key, state)
 			}
 		case STATE_SUMMARY:
 			switch {
@@ -331,6 +330,7 @@ func (g *Game) Draw() {
 	case STATE_GAME:
 		if g.Level != nil {
 			g.Level.Draw()
+			g.Font.Printf(0, 70, "Damage %.2f", g.Level.Player.Damage)
 			g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
 			g.Font.Printf(0, 10, "FPS %.1f", fps)
 		}
