@@ -26,7 +26,7 @@ type Player struct {
 	start   twodee.Point
 	Elapsed time.Duration
 	Damage  float64
-	Won bool
+	Won     bool
 }
 
 func NewPlayer(sprite *Sprite) *Player {
@@ -104,8 +104,6 @@ func (p *Player) GravitateToward(s Attachable) {
 		} else {
 			cv = cv2
 		}
-		log.Printf("PV: %v %v\tCV1: %v theta: %v\tCV2: %v theta: %v\n",
-			p.VelocityX, p.VelocityY, cv1, theta1, cv2, theta2)
 	}
 
 	// Now do some vector addition.
