@@ -16,7 +16,6 @@ package main
 
 import (
 	"../lib/twodee"
-	"log"
 	"math"
 	"time"
 )
