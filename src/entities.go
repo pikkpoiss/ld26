@@ -97,7 +97,7 @@ func NewVictoryZone(sprite *twodee.Sprite) *VictoryZone {
 	return &VictoryZone{
 		Sprite: NewSprite(sprite),
 		frames: map[int]*twodee.Animation{
-			ZONE_NORMAL: twodee.Anim([]int{0, 4, 5, 6, 5, 4}, 16),
+			ZONE_NORMAL: twodee.Anim([]int{0, 4, 5, 6}, 16),
 		},
 	}
 }

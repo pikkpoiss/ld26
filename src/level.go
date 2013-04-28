@@ -35,6 +35,7 @@ type Level struct {
 	wells       []*GravityWell
 	zones       []Colliding
 	startimes   []int
+	stars       []*Sprite
 }
 
 // NewLevel constructs a Level struct and returns it.
@@ -53,6 +54,10 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 	// Should create sprites for most objects
 	// Keep track of player sprite and just mark starting location.
 	switch tileset {
+	case "stars":
+		var sprite = NewSprite(l.System.NewSprite(tileset, x, y, w, h, index))
+		sprite.SetFrame(index)
+		l.stars = append(l.stars, sprite)
 	case "sprites32":
 		if index == 0 {
 			var sprite = NewSprite(l.System.NewSprite(tileset, x, y, w, h, index))
@@ -120,6 +125,9 @@ func (l *Level) GetCollision(s twodee.Spatial) Colliding {
 
 // Draw iterates over all entities in the level and draws them.
 func (l *Level) Draw() {
+	for _, e := range l.stars {
+		e.Draw()
+	}
 	for _, e := range l.zones {
 		e.Draw()
 	}

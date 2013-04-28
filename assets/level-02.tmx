@@ -9,11 +9,19 @@
   <image source="../data/sprites32.png" width="256" height="32"/>
  </tileset>
  <tileset firstgid="9" name="sprites16" tilewidth="16" tileheight="16">
-  <image source="../data/sprites16.png" width="128" height="16"/>
+  <image source="../data/sprites16.png" width="256" height="16"/>
+ </tileset>
+ <tileset firstgid="25" name="stars" tilewidth="16" tileheight="16">
+  <image source="../data/stars.png" width="48" height="16"/>
  </tileset>
  <layer name="Tile Layer 1" width="71" height="40">
   <data encoding="base64" compression="zlib">
    eJzt2MEKgCAURNGCNvX/H9wmCKKJ8j1zlHvApWUXUWiaAG29DJxoo43SZjtGJpc20W+jTb35d2ijubdZgvMj3Nv8Nf8ObfTedGkTNfK+iaKN5t7m7Z1Sg3ub0dBGo43Wok2Ns6EG2uSYk56T1abkXtwehoOWa3FvAwA96uUcbbFO2ni9swRtNNpoX9eZ8S+sxTtLsG802mi08UIbjTZA/3bkYQZO
+  </data>
+ </layer>
+ <layer name="Stars" width="71" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt100OhSAMBGCugd7/nsadIUBAfjpD59uYvI1jC5QXgqCK1gE6pXnZ8p/uxH7c1gFEBl2Z35j2KlPWb62Zcnuwoh/M82H3+vz7vp4az/4m7WERkTlnYe4uukPLe62yiS3kGc98v3yN7Cnkvoj0iMlT8GuBmi93piLfXUp1ZJ9trHbWHXld1rDmbrXqbBtZW5Y1P73fXnmcMaj3Fo9Qe4GaK7XiXEb/L1Y7s1Az9yp9B9sc9jhfZjllLYudBxUkBVA=
   </data>
  </layer>
 </map>
