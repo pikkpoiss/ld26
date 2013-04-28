@@ -18,6 +18,14 @@ import (
 	"../lib/twodee"
 )
 
+type SpinOption int
+
+const (
+	CLOCKWISE SpinOption = iota
+	COUNTER_CLOCKWISE
+	NOSPIN
+)
+
 type Spatial interface {
 	Centroid() twodee.Point
 	twodee.Spatial
@@ -29,10 +37,11 @@ type Moveable interface {
 	MoveToward(s Spatial)
 }
 
-type Stateful interface {
+type Attachable interface {
 	Spatial
 	SetState(int)
 	State() int
+	Spin() SpinOption
 }
 
 type Colliding interface {

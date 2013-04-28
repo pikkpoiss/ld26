@@ -16,6 +16,7 @@ package main
 
 import (
 	"../lib/twodee"
+	"log"
 	"math"
 	"time"
 )
@@ -54,7 +55,7 @@ func (p *Player) MoveToward(s Spatial) {
 
 // GravitateToward computes a new velocity vector for p, taking into account a
 // circulation effect.
-func (p *Player) GravitateToward(s Spatial) {
+func (p *Player) GravitateToward(s Attachable) {
 	var (
 		pc  = p.Centroid()
 		sc  = s.Centroid()
@@ -67,20 +68,44 @@ func (p *Player) GravitateToward(s Spatial) {
 	avy = avy / d
 	av := twodee.Pt(math.Max(1, 5-d)*0.2*avx, math.Max(1, 5-d)*0.2*avy)
 
-	// Calculate an orthogonal counter-clockwise 'circulation' vector.
-	cv := twodee.Pt(-av.Y, av.X)
-	if av.X > 0 {
-		// On the left side of the well, our Y component should be negative.
-		if cv.Y > 0 {
-			cv.X = -cv.X
-			cv.Y = -cv.Y
+	// There are two possible orthogonal 'circulation' vectors.
+	cv1 := twodee.Pt(-av.Y, av.X)
+	cv2 := twodee.Pt(av.Y, -av.X)
+	cv := cv1
+
+	// Decide which vector to use based on the 'spin' of the spatial.
+	switch s.Spin() {
+	case CLOCKWISE:
+		if av.X > 0 {
+			// On the left side of the well, our Y component should be positive.
+			cv = cv1
+		} else {
+			// On the right side of the well, our Y component should be negative.
+			cv = cv2
 		}
-	} else {
-		// On the right side of the well, our Y component should be positive
-		if cv.Y < 0 {
-			cv.X = -cv.X
-			cv.Y = -cv.Y
+	case COUNTER_CLOCKWISE:
+		if av.X > 0 {
+			// On the left side of the well, our Y component should be negative.
+			cv = cv2
+		} else {
+			// On the right side of the well, our Y component should be positive
+			cv = cv1
 		}
+	default:
+		// Compute whichever circulation vector is closer to our present vector.
+		// cos(theta) = A -dot- B / ||A||*||B||
+		dp1 := p.VelocityX*cv1.X + p.VelocityY*cv1.Y
+		denom := math.Sqrt(p.VelocityX*p.VelocityX + p.VelocityY*p.VelocityY)
+		theta1 := dp1 / denom
+		dp2 := p.VelocityX*cv2.X + p.VelocityY*cv2.Y
+		theta2 := dp2 / denom
+		if theta1 >= theta2 {
+			cv = cv1
+		} else {
+			cv = cv2
+		}
+		log.Printf("PV: %v %v\tCV1: %v theta: %v\tCV2: %v theta: %v\n",
+			p.VelocityX, p.VelocityY, cv1, theta1, cv2, theta2)
 	}
 
 	// Now do some vector addition.
