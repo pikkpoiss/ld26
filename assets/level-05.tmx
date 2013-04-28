@@ -6,14 +6,14 @@
   <property name="time3" value="9"/>
  </properties>
  <tileset firstgid="1" name="sprites32" tilewidth="32" tileheight="32">
-  <image source="../data/sprites32.png" width="256" height="32"/>
+  <image source="../data/sprites32.png" width="512" height="32"/>
  </tileset>
- <tileset firstgid="9" name="sprites16" tilewidth="16" tileheight="16">
+ <tileset firstgid="17" name="sprites16" tilewidth="16" tileheight="16">
   <image source="../data/sprites16.png" width="256" height="16"/>
  </tileset>
  <layer name="Tile Layer 1" width="71" height="40">
   <data encoding="base64" compression="zlib">
-   eJztl0sOwyAMBVOpm9L737erSBWKU0Ns86LOSKz4+GlCEGwbAADA/XisDgBwwnN1AABB3l1rXX87GONpnnXUwY0NbmxwY4MbG9zY4MYGN/b9fqUb9TeH6r5pAy0LZTcvR8MNbvrx2W5+zf1nN3sdC0U3+9yqf8qzxtGYKDczGSrPm7N1rL5IN6MZqs/i0e8Z7WYkQ5Ybb7aZvVSdIePu56k5M/duGSLXj86kkCGiTlYmhQxX6ins4WovnroKe3iVl+/6le981QwAAFF8AFbgF+Q=
+   eJztl1sOwiAQRTFxA7Y/Fl/736WQSCSEGRikMDb3JPNTLFyPVKbGAAAAAP/HaXYAABjOswMAoJA1qqurWzIerq2Cqp1HO3HWu6tHMh6uSdzUzqMduKGBGxq4oYEbGrihgRu6v5/pRvs7h9Z943vFV0WlPWZPtLrxn19cPZlaMuv0RLObzdWFqdw6EnLvNjGa3XBeerixhfs1uvG/Z2nP9HDj8X6ovZN+py0Z7+XGZubJEbx4RrgJ2bhnK84U08tNS4ZRbrhslBdj+rqRZhjpJpeN82LM9zmTuCn9x9VmCA6oXqflDC+dTTaan/NS8sZRen4kGbgeR5rPfu4rZdvLS7zG7Azc2i09dc9MGjJQSLPtkUlDBorabBr28Egvgdb+5mgZKOKzIa2Re3h2Bopwhv1yDh4hAwBAxhtbEznS
   </data>
  </layer>
 </map>

@@ -6,14 +6,22 @@
   <property name="time3" value="6"/>
  </properties>
  <tileset firstgid="1" name="sprites32" tilewidth="32" tileheight="32">
-  <image source="../data/sprites32.png" width="256" height="32"/>
+  <image source="../data/sprites32.png" width="512" height="32"/>
  </tileset>
- <tileset firstgid="9" name="sprites16" tilewidth="16" tileheight="16">
-  <image source="../data/sprites16.png" width="128" height="16"/>
+ <tileset firstgid="17" name="sprites16" tilewidth="16" tileheight="16">
+  <image source="../data/sprites16.png" width="256" height="16"/>
+ </tileset>
+ <tileset firstgid="33" name="stars" tilewidth="16" tileheight="16">
+  <image source="../data/stars.png" width="48" height="16"/>
  </tileset>
  <layer name="Tile Layer 1" width="71" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmNEKwyAMRTvYy7b//98xWCGUqDcxV1PIAZ9a4/XUWulxFEVRFEVRjPlcGqsuaxwmjNwjL5n8yBzvf5PXorKjTrK4ueawuLHkt3rZ7UbLYXWDzMHjZaebVg6Pm948vF5m3Dwm+h6dHCvdjPpIXo3mxZIZrRflBhlLkt2N1s/jxgPTzVO55s0748YLw42WJyqvVqP3DGZguWF+J3u1IseJdvNjxf4Z/Q3TYLhpZbDm3e2T5QYFeQej30N0nJ1u0LyR+/cd3CBzj/Az43/l2a+XN+JepO/oGUhWnW/QvKPzIurGu09LmOcbJCtj3cyMI9lx9mO6QcdprU9JBjfWmifR/wuzufHUPWH+Z2YQ7USrf4K4yQTTy5WRm4ysWts9N5nZsb7v4KUoiqIoVvIFX+IbFg==
+   eJztmN0KgzAMRh3sBcZu9vv+rzl3IYSSpl/TpI2QA73SJp/HqsVtS5IkSZIkaXMvhlddrz6eeORueYnkh+Z47ONdHLPKjjqJ4qbM8dnHlzk+mr/Xy2o3XI5eN8g1aLysdFPLoXEjXYfWy4iby8DcTcjx2sdTOM/STWsO5VYZWnoyo/Ws3CC9KNHdcPM0bjR4urkyx7R5R9xo8XDD5bHKy9WQ7sEIXm48v5NSLcs+1m7+zHh/Wn/DODzc1DL05l3t08sNCvIMWj+HaJ+VbtC8lu/vM7hBrt3Cz4j/mXs/Ka/Fucjc1j2gzNrfoHlb+0XUjfY9TfHc3yBZPdbNSB/Kir2fpxu0T219UiK46a150PMvFe1DWe1GU/eg559YBKydcPUPEDeR8PRS0nITkVlrW/qXGpkV6/sMXpIkSZJkJj9sDjAQ
+  </data>
+ </layer>
+ <layer name="Stars" width="71" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztmEsSwyAMQ3OVtve/Y6eLbjL5ALGMZPT2MEaWDMm2GWN+vAF7fgB7KvFKWnNGT0+PehXpiWgvjOiE8PgMRj2ych4jc1WZyjpVPlslqszpP0pzF13rChmseEaFTFbUPQP02/8KBV9l0aLFU487I2vj/msxaz7aJzm06szWD9R3wt2+bDoYw8RoPlbMVcTdGq3bviaV7yOVOmeg9P/PYDnLyd0cYcyX6p0xq27GHjLMJoYaEOz7jX4rZK9vRXVOXNF7JqQG6D725pNxzh3RU6ezogOLhl8CGgi1
   </data>
  </layer>
 </map>
