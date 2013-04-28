@@ -41,10 +41,12 @@ TODO
     [X] Make restart do something
     [X] Win a level
     [X] Add load / swap level code
+    [X] End game state / screen
     [ ] Handle screen resize or prevent screen resize
     [ ] Scoring system
+    [ ] Show level scores on selection screen
+    [ ] Save / load level scores / progress
     [ ] Lives system
-    [ ] End game state / screen
     [ ] Determine "standard" level structures
     [ ] Build a track of levels of increasing difficulty
     [ ] Implement billboard system
