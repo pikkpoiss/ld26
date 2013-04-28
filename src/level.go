@@ -18,6 +18,7 @@ import (
 	"../lib/twodee"
 	"log"
 	"math"
+	"strconv"
 )
 
 // Need to load a level, call something like this:
@@ -33,13 +34,15 @@ type Level struct {
 	Player      *Player
 	wells       []*GravityWell
 	zones       []Colliding
+	startimes   []int
 }
 
 // NewLevel constructs a Level struct and returns it.
 func NewLevel(s *twodee.System) *Level {
 	return &Level{
-		System: s,
-		wells:  make([]*GravityWell, 0),
+		System:    s,
+		wells:     make([]*GravityWell, 0),
+		startimes: []int{90, 60, 30},
 	}
 }
 
@@ -78,7 +81,19 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 
 // SetBounds stores the size of this particular level.
 func (l *Level) Loaded(rect twodee.Rectangle, props map[string]string) {
+	log.Printf("Loaded: %v\n", props)
 	l.levelBounds = rect
+	for k, v := range props {
+		switch k {
+		case "time1":
+			l.startimes[0], _ = strconv.Atoi(v)
+		case "time2":
+			l.startimes[1], _ = strconv.Atoi(v)
+		case "time3":
+			l.startimes[2], _ = strconv.Atoi(v)
+		}
+	}
+	log.Printf("Star times: %v\n", l.startimes)
 }
 
 // GetBounds returns the size of this particular level.
@@ -141,5 +156,11 @@ func (l *Level) Update() {
 }
 
 func (l *Level) GetStars(score *Score) {
-	score.Stars = 2
+	var i int
+	for i = 0; i < 3; i++ {
+		if float64(l.startimes[i]) < score.Time.Seconds() {
+			break
+		}
+	}
+	score.Stars = i
 }
