@@ -36,6 +36,7 @@ const (
 	STATE_OPTION
 	STATE_GAME
 	STATE_SUMMARY
+	STATE_WIN
 )
 
 const (
@@ -75,7 +76,6 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 			"data/level-dev.json",
 			"data/level-dev.json",
 			"data/level-dev.json",
-			"data/level-dev.json",
 		},
 		CurrentLevel: 0,
 		state:        STATE_SPLASH,
@@ -95,6 +95,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	}
 	game.Splash = game.System.NewSprite("splash", 0, 0, 71, 40, 0)
 	game.Splash.SetTextureHeight(640)
+	game.Splash.SetFrame(0)
 	game.handleKeys()
 	game.handleClose()
 	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
@@ -191,6 +192,8 @@ func (g *Game) handleKeys() {
 				g.laststate = g.state
 				g.state = STATE_OPTION
 			}
+		case STATE_WIN:
+			fallthrough
 		case STATE_SPLASH:
 			switch {
 			case key == twodee.KeyEnter && state == 0:
@@ -218,7 +221,12 @@ func (g *Game) handleKeys() {
 		case STATE_SUMMARY:
 			switch {
 			case state == 0:
-				g.state = STATE_SELECT
+				if g.CurrentLevel+1 == len(g.Levels) {
+					g.state = STATE_WIN
+					g.Splash.SetFrame(2)
+				} else {
+					g.state = STATE_SELECT
+				}
 			}
 		}
 	})
@@ -239,8 +247,7 @@ func (g *Game) SetLevel(i int) {
 func (g *Game) handleWin() {
 	g.Summary.SetMetrics(g.Level, g.CurrentLevel+1)
 	g.state = STATE_SUMMARY
-	g.CurrentLevel += 1
-	g.SelectMenu.SetSelectable(g.CurrentLevel, true)
+	g.SelectMenu.SetSelectable(g.CurrentLevel+1, true)
 	g.SelectMenu.NextSelection()
 }
 
@@ -300,6 +307,8 @@ func (g *Game) Draw() {
 		option = true
 	}
 	switch state {
+	case STATE_WIN:
+		fallthrough
 	case STATE_SPLASH:
 		g.Splash.Draw()
 	case STATE_SELECT:
