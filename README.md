@@ -9,10 +9,11 @@ Instructions
 ------------
 Starting:
 
-    brew install mpg123 libao
+    brew install sdl_mixer
     git clone ...
     git submodule init
     git submodule update
+    go get github.com/banthar/Go-SDL/mixer
 
 Running:
 
