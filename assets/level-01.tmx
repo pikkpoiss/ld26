@@ -6,22 +6,22 @@
   <property name="time3" value="6"/>
  </properties>
  <tileset firstgid="1" name="sprites32" tilewidth="32" tileheight="32">
-  <image source="../data/sprites32.png" width="256" height="32"/>
+  <image source="../data/sprites32.png" width="512" height="32"/>
  </tileset>
- <tileset firstgid="9" name="sprites16" tilewidth="16" tileheight="16">
+ <tileset firstgid="17" name="sprites16" tilewidth="16" tileheight="16">
   <image source="../data/sprites16.png" width="256" height="16"/>
  </tileset>
- <tileset firstgid="25" name="stars" tilewidth="16" tileheight="16">
+ <tileset firstgid="33" name="stars" tilewidth="16" tileheight="16">
   <image source="../data/stars.png" width="48" height="16"/>
  </tileset>
  <layer name="Tile Layer 1" width="71" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt1zEKgDAQRcEINnr/A9tYKV9WCyHsDKQLKR6BbMYAAAC62M/FnTaZNlnXNmthT9c2FdpkT222y+pGm2+0yd60WYpnVt6HGbg3mTaZNpk2Wfc25ptMm8x/Kpu1zR8z5Kxt/qBNpk2mDQD0cQBwqwLa
+   eJzt2EkKgDAQRFEFL+DO8f7XNGuhmnaTwfoPeqVI+AjGTBMAAAAAF1uZs/UiOnWVuVsvolO00VzbLIl7XNtk0EaL2qyvcXOU2cU19zYR2mhf2szJZ2a+DyPgvdFoo9FGo43m3iY6o3Bvw75Y439KG7VNjT3kqG1qoI1GGy06owAAAP/yAL+zBnI=
   </data>
  </layer>
  <layer name="Stars" width="71" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmFEOwCAIQ3cNt/vfcx/Lkn1sLCJKgb4DaC0FjW0jpA4t2LoZ0HgT3U9E/Ye3gEJYe41YO8SMZ2Smz9LaiJkjPiD0OoIGJHZvAYFBydKIDpQzeFH9/CQmzC3R8HbfZ80S3zb1yJplNGb6zL696PGYntkRcYZ4/7NJnqFnM2K9yXfdWM869Nb6OSdX5+Seg9p90ecoyYXmTbG6pyz2s9aMev+g6rJCyuvI7MzuWy9/XiL5xTszPicEhwVi
+   eJztmFEOwCAIQ3cVt/vfcR/Lkn1sLCJKgb4DaC0FjW0jpA4t2LoZ0HgT3U9E/Ye3gEJYe41YO8SMZ2Smz9LaiJkjPiD0OoIGJHZvAYFBydKIDpQzeFH9/CQmzC3R8HbfZ80S3zb1yJplNGb6zL696PGYntkRcYZ4/7NJnqFnM2K9yXfdWM869Nb6OSdX5+Seg9p90ecoyYXmTbG6pyz2s9aMev+g6rJCyuvI7MzuWy9/XiL5xTszPic0xQcS
   </data>
  </layer>
 </map>
