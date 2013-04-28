@@ -30,7 +30,6 @@ package main
 import "C"
 
 import (
-	// "fmt"
 	"unsafe"
 )
 
@@ -49,10 +48,6 @@ func (s *SoundSystem) Shutdown() {
 }
 
 func (s *SoundSystem) DecodeTrack(file string, control chan int) {
-
-	// var v1 *C.mpg123_id3v1
-	// var v2 *C.mpg123_id3v2
-
 	m := C.mpg123_new(nil, nil)
 	defer C.mpg123_delete(m)
 
@@ -64,31 +59,6 @@ func (s *SoundSystem) DecodeTrack(file string, control chan int) {
 	defer C.mpg123_close(m)
 
 	C.mpg123_scan(m)
-	// meta := C.mpg123_meta_check(m)
-
-	// if meta == C.MPG123_ID3 && C.mpg123_id3(m, &v1, &v2) == C.MPG123_OK {
-	// 	var title, artist, album, genre string
-	// 	switch false {
-	// 	case v2 == nil:
-	// 		fmt.Println("ID3V2 tag found")
-	// 		title = C.GoString(v2.title.p)
-	// 		artist = C.GoString(v2.artist.p)
-	// 		album = C.GoString(v2.album.p)
-	// 		genre = C.GoString(v2.genre.p)
-
-	// 	case v1 == nil:
-	// 		fmt.Println("ID3V2 tag found")
-	// 		title = C.GoString(&v1.title[0])
-	// 		artist = C.GoString(&v1.artist[0])
-	// 		album = C.GoString(&v1.album[0])
-	// 		genre = "Unknown" // FIXME convert int to string
-	// 	}
-
-	// 	fmt.Println(title)
-	// 	fmt.Println(artist)
-	// 	fmt.Println(album)
-	// 	fmt.Println(genre)
-	// }
 
 	default_driver := C.ao_default_driver_id()
 	var format C.ao_sample_format
