@@ -39,8 +39,8 @@ TODO
     [X] Menus (exit, restart level, etc)
     [X] Don't require power of 2 image sizes
     [X] Make restart do something
-    [ ] Win a level
-    [ ] Add load / swap level code
+    [X] Win a level
+    [X] Add load / swap level code
     [ ] Handle screen resize or prevent screen resize
     [ ] Scoring system
     [ ] Lives system
