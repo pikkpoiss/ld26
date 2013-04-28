@@ -44,9 +44,8 @@ TODO
     [X] End game state / screen
     [X] Scoring system
     [X] Show level scores on selection screen
-    [ ] Handle screen resize or prevent screen resize
+    [X] Handle screen resize or prevent screen resize
     [ ] Save / load level scores / progress
-    [ ] Lives system
     [ ] Determine "standard" level structures
     [ ] Build a track of levels of increasing difficulty
     [ ] Implement billboard system
