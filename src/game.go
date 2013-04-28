@@ -35,6 +35,7 @@ const (
 	STATE_SELECT
 	STATE_OPTION
 	STATE_GAME
+	STATE_SUMMARY
 )
 
 const (
@@ -54,6 +55,7 @@ type Game struct {
 	Splash       *twodee.Sprite
 	SelectMenu   *Menu
 	OptionMenu   *Menu
+	Summary      *Summary
 	state        int
 	laststate    int
 	lastpaint    time.Time
@@ -104,6 +106,12 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	}
 	game.OptionMenu.SetSelectable(0, true)
 	game.OptionMenu.SetSelectable(1, false)
+
+	game.Summary = NewSummary(game.System, game.Font, game.Window)
+	if twodee.LoadTiledMap(game.System, game.Summary, "data/menu-summary.json"); err != nil {
+		err = fmt.Errorf("Couldn't load summary menu %v", err)
+		return
+	}
 	return
 }
 
@@ -194,6 +202,15 @@ func (g *Game) handleKeys() {
 				g.OptionMenu.SetSelection(1)
 				g.laststate = g.state
 				g.state = STATE_OPTION
+			case key == 80 && state == 0: // p
+				g.handleWin()
+			default:
+				log.Printf("Key: %v %v\n", key, state)
+			}
+		case STATE_SUMMARY:
+			switch {
+			case state == 0:
+				g.state = STATE_SELECT
 			}
 		}
 	})
@@ -209,6 +226,14 @@ func (g *Game) SetLevel(i int) {
 	g.Level = level
 	g.CurrentLevel = index
 	g.state = STATE_GAME
+}
+
+func (g *Game) handleWin() {
+	g.Summary.SetMetrics(g.Level, g.CurrentLevel+1)
+	g.state = STATE_SUMMARY
+	g.CurrentLevel += 1
+	g.SelectMenu.SetSelectable(g.CurrentLevel, true)
+	g.SelectMenu.NextSelection()
 }
 
 func (g *Game) Run() (err error) {
@@ -232,6 +257,9 @@ func (g *Game) Run() (err error) {
 				g.Level.Player.Update()
 				if c := g.Level.GetCollision(g.Level.Player); c != nil {
 					c.Collision(g.Level.Player)
+				}
+				if g.Level.Player.Won {
+					g.handleWin()
 				}
 			}
 		}
@@ -265,12 +293,14 @@ func (g *Game) Draw() {
 		g.Splash.Draw()
 	case STATE_SELECT:
 		g.SelectMenu.Draw()
+	case STATE_SUMMARY:
+		g.Summary.Draw()
 	default:
 		if g.Level != nil {
 			g.Level.Draw()
+			g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
+			g.Font.Printf(0, 10, "FPS %.1f", fps)
 		}
-		g.Font.Printf(0, 10, "FPS %.1f", fps)
-		g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
 		if g.state == STATE_OPTION {
 			g.OptionMenu.Draw()
 		}
