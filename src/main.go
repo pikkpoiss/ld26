@@ -39,7 +39,7 @@ func main() {
 		log.Fatalf("Couldn't init system: %v\n", err)
 	}
 	defer system.Terminate()
-	window = &twodee.Window{Width: 1136, Height: 640, Scale: 1}
+	window = &twodee.Window{Width: 1136, Height: 640, Scale: 1, Resize: false}
 	if game, err = NewGame(system, window); err != nil {
 		log.Fatalf("Couldn't start game: %v\n", err)
 	}

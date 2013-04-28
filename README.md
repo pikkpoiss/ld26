@@ -42,9 +42,9 @@ TODO
     [X] Win a level
     [X] Add load / swap level code
     [X] End game state / screen
+    [X] Scoring system
+    [X] Show level scores on selection screen
     [ ] Handle screen resize or prevent screen resize
-    [ ] Scoring system
-    [ ] Show level scores on selection screen
     [ ] Save / load level scores / progress
     [ ] Lives system
     [ ] Determine "standard" level structures
