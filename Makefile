@@ -54,7 +54,7 @@ $(OSXBUILD)/Resources/data/%: data/%
 
 build/$(PROJECT)-osx-$(VERSION).zip: \
 	$(OSXBUILD)/Info.plist \
-	$(subst lib/,$(OSXBUILD)/MacOS/,$(wildcard lib/*.dylib)) \
+	$(subst lib/osx/,$(OSXBUILD)/MacOS/,$(wildcard lib/osx/*.dylib)) \
 	$(OSXBUILD)/MacOS/launch.sh \
 	$(OSXBUILD)/MacOS/$(PROJECT) \
 	$(subst data/,$(OSXBUILD)/Resources/data/,$(wildcard data/*)) \
