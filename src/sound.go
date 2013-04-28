@@ -25,7 +25,7 @@ func Play() {
 		mixer.DEFAULT_CHANNELS, 4096) != 0 {
 		panic(sdl.GetError())
 	}
-	var m = mixer.LoadMUS("data/sounds/burning-out-of-control.ogg")
+	var m = mixer.LoadMUS("data/burning-out-of-control.ogg")
 	if m == nil {
 		panic(sdl.GetError())
 	}
