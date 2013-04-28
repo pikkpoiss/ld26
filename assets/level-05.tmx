@@ -11,9 +11,17 @@
  <tileset firstgid="17" name="sprites16" tilewidth="16" tileheight="16">
   <image source="../data/sprites16.png" width="256" height="16"/>
  </tileset>
+ <tileset firstgid="33" name="stars" tilewidth="16" tileheight="16">
+  <image source="../data/stars.png" width="48" height="16"/>
+ </tileset>
  <layer name="Tile Layer 1" width="71" height="40">
   <data encoding="base64" compression="zlib">
    eJztl1sOwiAQRTFxA7Y/Fl/736WQSCSEGRikMDb3JPNTLFyPVKbGAAAAAP/HaXYAABjOswMAoJA1qqurWzIerq2Cqp1HO3HWu6tHMh6uSdzUzqMduKGBGxq4oYEbGrihgRu6v5/pRvs7h9Z943vFV0WlPWZPtLrxn19cPZlaMuv0RLObzdWFqdw6EnLvNjGa3XBeerixhfs1uvG/Z2nP9HDj8X6ovZN+py0Z7+XGZubJEbx4RrgJ2bhnK84U08tNS4ZRbrhslBdj+rqRZhjpJpeN82LM9zmTuCn9x9VmCA6oXqflDC+dTTaan/NS8sZRen4kGbgeR5rPfu4rZdvLS7zG7Azc2i09dc9MGjJQSLPtkUlDBorabBr28Egvgdb+5mgZKOKzIa2Re3h2Bopwhv1yDh4hAwBAxhtbEznS
+  </data>
+ </layer>
+ <layer name="Stars" width="71" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztmUsOgzAMRLkK7f3v2FUlGhHjFH9mjN8KCVDs8dhEYduaph6vpHeP7Dfvz7CKLwq2eBte3srn2pPXXGnpqaGmjtpao1Mlj+Y+bF74dw+DiqQ/yzejWk1mMPWKR03Q/VjRhzPNUXKN6onIfCWfo+h+RsZ8svKnpa7eNUKbg2jxVEGrK8JM2CfXzTmrGjHt/UakXL29wu7LzDOp5hfGHmT0/IhVDhW0kNDMgsh5e4Sxd9jI8Ld2TeTes4gNOb9VkHsVRWfvOCJrkKnpuDZKfUcQemJFG4R4vzzxX4CGJ50BeMOmDesZfyPzATYFCig=
   </data>
  </layer>
 </map>
