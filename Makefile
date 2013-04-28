@@ -17,8 +17,9 @@
 PROJECT  = ld26
 SOURCES  = $(wildcard src/*.go)
 
-OSXLIBS  = $(wildcard lib/osx/*.dylib)
 OSXBUILD = build/$(PROJECT)-osx/${PROJECT}.app/Contents
+OSXLIBS  = $(wildcard lib/osx/*.dylib)
+OSXLIBSD = $(subst lib/osx/,$(OSXBUILD)/MacOS/,$(OSXLIBS)) \
 
 VERSION = $(shell cat VERSION)
 REPLACE = s/9\.9\.9/$(VERSION)/g
@@ -54,8 +55,8 @@ $(OSXBUILD)/Resources/data/%: data/%
 
 build/$(PROJECT)-osx-$(VERSION).zip: \
 	$(OSXBUILD)/Info.plist \
-	$(subst lib/osx/,$(OSXBUILD)/MacOS/,$(wildcard lib/osx/*.dylib)) \
 	$(OSXBUILD)/MacOS/launch.sh \
+	$(OSXLIBSD) \
 	$(OSXBUILD)/MacOS/$(PROJECT) \
 	$(subst data/,$(OSXBUILD)/Resources/data/,$(wildcard data/*)) \
 	$(subst assets/,$(OSXBUILD)/Resources/, $(wildcard assets/*.icns))
