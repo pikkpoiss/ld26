@@ -22,6 +22,7 @@ import (
 
 const (
 	PLAYER_NORMAL = iota
+	PLAYER_DAMAGED
 )
 
 type Player struct {
@@ -42,6 +43,7 @@ func NewPlayer(sprite *Sprite) *Player {
 		start:   twodee.Pt(sprite.X(), sprite.Y()),
 		frames: map[int]*twodee.Animation{
 			PLAYER_NORMAL: twodee.Anim([]int{0, 1, 2, 6}, 4),
+			PLAYER_DAMAGED: twodee.Anim([]int{7, 8, 9, 10}, 4),
 		},
 		state: PLAYER_NORMAL,
 	}
@@ -130,6 +132,7 @@ const (
 
 func (p *Player) Injure(amt float64) {
 	p.Damage += amt
+	p.state = PLAYER_DAMAGED
 }
 
 func (p *Player) Bounce(t Spatial) {
@@ -181,6 +184,7 @@ func (p *Player) Update() {
 	p.Elapsed += time.Second / time.Duration(UPDATE_HZ)
 	p.Sprite.SetFrame(p.frames[p.state].Next())
 	p.Sprite.Update()
+	p.state = PLAYER_NORMAL
 }
 
 func (p *Player) SetWon(w bool) {
