@@ -35,6 +35,7 @@ const (
 	STATE_SELECT
 	STATE_OPTION
 	STATE_GAME
+	STATE_SUMMARY
 )
 
 const (
@@ -54,6 +55,7 @@ type Game struct {
 	Splash       *twodee.Sprite
 	SelectMenu   *Menu
 	OptionMenu   *Menu
+	Summary      *Summary
 	state        int
 	laststate    int
 	lastpaint    time.Time
@@ -68,9 +70,16 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		Camera: twodee.NewCamera(0, 0, 71, 40),
 		Levels: []string{
 			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
+			"data/level-dev.json",
 		},
-		state: STATE_SPLASH,
-		exit:  make(chan bool, 1),
+		CurrentLevel: 0,
+		state:        STATE_SPLASH,
+		exit:         make(chan bool, 1),
 	}
 	if err = sys.Open(win); err != nil {
 		err = fmt.Errorf("Couldn't open window: %v", err)
@@ -95,7 +104,6 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		return
 	}
 	game.SelectMenu.SetSelectable(0, true)
-	game.SelectMenu.SetSelectable(1, true)
 	game.OptionMenu = NewMenu(game.System)
 	log.Printf("Loading option menu\n")
 	if err = twodee.LoadTiledMap(game.System, game.OptionMenu, "data/menu-options.json"); err != nil {
@@ -104,6 +112,12 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	}
 	game.OptionMenu.SetSelectable(0, true)
 	game.OptionMenu.SetSelectable(1, false)
+
+	game.Summary = NewSummary(game.System, game.Font, game.Window)
+	if twodee.LoadTiledMap(game.System, game.Summary, "data/menu-summary.json"); err != nil {
+		err = fmt.Errorf("Couldn't load summary menu %v", err)
+		return
+	}
 	return
 }
 
@@ -172,6 +186,7 @@ func (g *Game) handleKeys() {
 			case key == twodee.KeySpace && state == 0:
 				g.SetLevel(g.SelectMenu.GetSelection())
 			case key == twodee.KeyEsc && state == 0:
+				g.OptionMenu.SetSelection(0)
 				g.OptionMenu.SetSelectable(1, false)
 				g.laststate = g.state
 				g.state = STATE_OPTION
@@ -183,6 +198,7 @@ func (g *Game) handleKeys() {
 			case key == twodee.KeySpace && state == 0:
 				g.state = STATE_SELECT
 			case key == twodee.KeyEsc && state == 0:
+				g.OptionMenu.SetSelection(0)
 				g.OptionMenu.SetSelectable(1, false)
 				g.laststate = g.state
 				g.state = STATE_OPTION
@@ -194,6 +210,15 @@ func (g *Game) handleKeys() {
 				g.OptionMenu.SetSelection(1)
 				g.laststate = g.state
 				g.state = STATE_OPTION
+			case key == 80 && state == 0: // p
+				g.handleWin()
+			default:
+				log.Printf("Key: %v %v\n", key, state)
+			}
+		case STATE_SUMMARY:
+			switch {
+			case state == 0:
+				g.state = STATE_SELECT
 			}
 		}
 	})
@@ -209,6 +234,14 @@ func (g *Game) SetLevel(i int) {
 	g.Level = level
 	g.CurrentLevel = index
 	g.state = STATE_GAME
+}
+
+func (g *Game) handleWin() {
+	g.Summary.SetMetrics(g.Level, g.CurrentLevel+1)
+	g.state = STATE_SUMMARY
+	g.CurrentLevel += 1
+	g.SelectMenu.SetSelectable(g.CurrentLevel, true)
+	g.SelectMenu.NextSelection()
 }
 
 func (g *Game) Run() (err error) {
@@ -233,6 +266,9 @@ func (g *Game) Run() (err error) {
 				if c := g.Level.GetCollision(g.Level.Player); c != nil {
 					c.Collision(g.Level.Player)
 				}
+				if g.Level.Player.Won {
+					g.handleWin()
+				}
 			}
 		}
 	}()
@@ -253,24 +289,31 @@ func (g *Game) Run() (err error) {
 
 func (g *Game) Draw() {
 	var (
-		now time.Time
-		fps float64
+		now    = time.Now()
+		fps    = 1.0 / now.Sub(g.lastpaint).Seconds()
+		option = false
+		state  = g.state
 	)
-	now = time.Now()
-	fps = 1.0 / now.Sub(g.lastpaint).Seconds()
-
 	g.Camera.SetProjection()
-	switch g.state {
+	if state == STATE_OPTION {
+		state = g.laststate
+		option = true
+	}
+	switch state {
 	case STATE_SPLASH:
 		g.Splash.Draw()
 	case STATE_SELECT:
 		g.SelectMenu.Draw()
-	default:
+	case STATE_SUMMARY:
+		g.Summary.Draw()
+	case STATE_GAME:
 		if g.Level != nil {
 			g.Level.Draw()
+			g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
+			g.Font.Printf(0, 10, "FPS %.1f", fps)
 		}
-		g.Font.Printf(0, 10, "FPS %.1f", fps)
-		g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
+	}
+	if option {
 		if g.state == STATE_OPTION {
 			g.OptionMenu.Draw()
 		}

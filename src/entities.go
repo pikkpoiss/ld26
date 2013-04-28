@@ -16,7 +16,6 @@ package main
 
 import (
 	"../lib/twodee"
-	"log"
 )
 
 // Mob represents a mobile sprite in the game.
@@ -83,5 +82,5 @@ func NewVictoryZone(sprite *twodee.Sprite) *VictoryZone {
 }
 
 func (z *VictoryZone) Collision(p *Player) {
-	log.Printf("Woop won")
+	p.SetWon(true)
 }

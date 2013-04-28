@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="71" height="40" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="options16" tilewidth="16" tileheight="16">
+  <image source="../data/options16.png" width="32" height="16"/>
+ </tileset>
+ <tileset firstgid="3" name="targets" tilewidth="256" tileheight="64">
+  <image source="options256.png" width="2048" height="64"/>
+ </tileset>
+ <tileset firstgid="11" name="summary128" tilewidth="128" tileheight="128">
+  <image source="../data/summary128.png" width="512" height="128"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="71" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwwENAAAMw6DOv+lfCCSsmqqqqqqqqqqqqqrqP3V6Cxk=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="71" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztyaEBAAAMAiD7/v93T2iDSgIAAAAAAAAAwNqNHwAAWh6KiwAi
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="71" height="40">
+  <object name="time" x="400" y="176" width="320" height="64"/>
+  <object name="level" x="400" y="80" width="320" height="64"/>
+  <object name="damage" x="400" y="272" width="320" height="64"/>
+ </objectgroup>
+</map>

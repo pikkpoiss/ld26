@@ -16,7 +16,10 @@ package main
 
 import (
 	"../lib/twodee"
+	"fmt"
+	"log"
 	"sort"
+	"time"
 )
 
 const (
@@ -41,14 +44,14 @@ func (s MenuOptionsByX) Less(i, j int) bool {
 type MenuOption struct {
 	*Sprite
 	Selectable bool
-	index int
+	index      int
 }
 
 func NewMenuOption(s *twodee.Sprite, i int) *MenuOption {
 	return &MenuOption{
 		Sprite:     NewSprite(s),
 		Selectable: false,
-		index: i,
+		index:      i,
 	}
 }
 
@@ -150,4 +153,99 @@ func (m *Menu) SetSelection(i int) {
 
 func (m *Menu) GetSelection() int {
 	return m.index
+}
+
+type Summary struct {
+	system      *twodee.System
+	background  []*Sprite
+	stars       []*Sprite
+	font        *twodee.Font
+	pointTime   twodee.Point
+	pointLevel  twodee.Point
+	pointDamage twodee.Point
+	time        time.Duration
+	level       int
+	damage      float64
+	width       float64
+	height      float64
+	window      *twodee.Window
+	numstars    int
+}
+
+func NewSummary(s *twodee.System, font *twodee.Font, win *twodee.Window) *Summary {
+	return &Summary{
+		system: s,
+		font:   font,
+		window: win,
+		level:  0,
+		damage: 0,
+	}
+}
+
+func (s *Summary) Create(tileset string, index int, x, y, w, h float64) {
+	switch tileset {
+	case "options16":
+		b := NewSprite(s.system.NewSprite(tileset, x, y, w, h, index))
+		b.SetFrame(index)
+		s.background = append(s.background, b)
+	case "summary128":
+		b := NewSprite(s.system.NewSprite(tileset, x, y, w, h, index))
+		b.SetFrame(index)
+		s.stars = append(s.stars, b)
+	case "time":
+		s.pointTime = twodee.Pt(x, y)
+	case "level":
+		s.pointLevel = twodee.Pt(x, y)
+	case "damage":
+		s.pointDamage = twodee.Pt(x, y)
+	default:
+		log.Printf("tileset: %v index: %v\n", tileset, index)
+	}
+}
+
+func (s *Summary) textCoords(pt twodee.Point) twodee.Point {
+	var (
+		tx = pt.X / s.width * float64(s.window.Width)
+		ty = pt.Y / s.height * float64(s.window.Height)
+	)
+	return twodee.Pt(tx, ty)
+}
+
+func (s *Summary) Draw() {
+	if s.background != nil {
+		for _, e := range s.background {
+			e.Draw()
+		}
+	}
+	if s.stars != nil {
+		for _, e := range s.stars {
+			e.Draw()
+		}
+	}
+	var pt twodee.Point
+	pt = s.textCoords(s.pointTime)
+	s.font.Printf(pt.X, pt.Y, "%.1f seconds", s.time.Seconds())
+	pt = s.textCoords(s.pointLevel)
+	s.font.Printf(pt.X, pt.Y, "Level %v", s.level)
+	pt = s.textCoords(s.pointDamage)
+	str := fmt.Sprintf("Damage taken %.0f", s.damage*100.0)
+	s.font.Printf(pt.X, pt.Y, str)
+}
+
+func (s *Summary) SetMetrics(l *Level, level int) {
+	s.level = level
+	s.time = l.Player.Elapsed
+	s.numstars = 2
+	for i := 0; i < len(s.stars); i++ {
+		if i < s.numstars-1 {
+			s.stars[i].SetFrame(1)
+		} else {
+			s.stars[i].SetFrame(0)
+		}
+	}
+}
+
+func (s *Summary) SetBounds(b twodee.Rectangle) {
+	s.width = b.Max.X - b.Min.X
+	s.height = b.Max.Y - b.Min.Y
 }

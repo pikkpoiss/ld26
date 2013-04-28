@@ -25,12 +25,15 @@ type Player struct {
 	*Sprite
 	start   twodee.Point
 	Elapsed time.Duration
+	Damage  float64
+	Won bool
 }
 
 func NewPlayer(sprite *Sprite) *Player {
 	return &Player{
 		Sprite:  sprite,
 		Elapsed: 0,
+		Damage:  0,
 		start:   twodee.Pt(sprite.X(), sprite.Y()),
 	}
 }
@@ -165,4 +168,8 @@ func (p *Player) Reset() {
 func (p *Player) Update() {
 	p.Elapsed += time.Second / time.Duration(UPDATE_HZ)
 	p.Sprite.Update()
+}
+
+func (p *Player) SetWon(w bool) {
+	p.Won = w
 }
