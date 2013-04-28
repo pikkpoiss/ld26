@@ -127,7 +127,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	game.Sound = NewSoundSystem()
 	game.soundChannel = make(chan int, 1)
 	go func() {
-		game.Sound.DecodeTrack("/Users/wesgoodman/Downloads/grammy.mp3", game.soundChannel)
+		game.Sound.DecodeTrack("data/sounds/burning-out-of-control.mp3", game.soundChannel)
 	}()
 	return
 }
