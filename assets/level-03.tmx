@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="71" height="40" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="time1" value="50"/>
+  <property name="time2" value="20"/>
+  <property name="time3" value="9"/>
+ </properties>
+ <tileset firstgid="1" name="sprites32" tilewidth="32" tileheight="32">
+  <image source="../data/sprites32.png" width="256" height="32"/>
+ </tileset>
+ <tileset firstgid="9" name="sprites16" tilewidth="16" tileheight="16">
+  <image source="../data/sprites16.png" width="128" height="16"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="71" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt2DEKwzAQRUEF0iS5/33TuAvfOCBZ8noGthMuHiswag0A7uu9Db+0ybTJtMm0ybTJKrR5DPrujDbPA2deYdBmz6g2R3Z2dfYm693mc9HRRhtttNFm/pzRphJtspltVv93tjdZ1TY93j2u1OafO1jhvWwUbTJtMm0ybTJtMm2Aar730RCO
+  </data>
+ </layer>
+</map>

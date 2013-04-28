@@ -72,12 +72,12 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		Window: win,
 		Camera: twodee.NewCamera(0, 0, 71, 40),
 		Levels: []string{
-			"data/level-dev.json",
-			"data/level-dev.json",
-			"data/level-dev.json",
-			"data/level-dev.json",
-			"data/level-dev.json",
-			"data/level-dev.json",
+			"data/level-01.json",
+			"data/level-02.json",
+			"data/level-03.json",
+			"data/level-04.json",
+			"data/level-05.json",
+			"data/level-06.json",
 		},
 		Scores:       make([]*Score, 6),
 		CurrentLevel: 0,
@@ -250,6 +250,7 @@ func (g *Game) SetLevel(i int) {
 	twodee.LoadTiledMap(g.System, level, path)
 	g.Level = level
 	g.CurrentLevel = index
+	g.SelectMenu.SetSelectable(g.CurrentLevel, true)
 	g.state = STATE_GAME
 }
 
