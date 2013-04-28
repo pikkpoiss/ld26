@@ -45,7 +45,7 @@ TODO
     [X] Scoring system
     [X] Show level scores on selection screen
     [X] Handle screen resize or prevent screen resize
-    [ ] Make blue regions hurt you instead of bouncing
+    [X] Make blue regions hurt you instead of bouncing
     [ ] Save / load level scores / progress
     [ ] Determine "standard" level structures
     [ ] Build a track of levels of increasing difficulty
