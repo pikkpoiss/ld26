@@ -20,12 +20,18 @@ import (
 	"time"
 )
 
+const (
+	PLAYER_NORMAL = iota
+)
+
 type Player struct {
 	*Sprite
 	start   twodee.Point
 	Elapsed time.Duration
 	Damage  float64
 	Won     bool
+	frames  map[int]*twodee.Animation
+	state   int
 }
 
 func NewPlayer(sprite *Sprite) *Player {
@@ -34,6 +40,10 @@ func NewPlayer(sprite *Sprite) *Player {
 		Elapsed: 0,
 		Damage:  0,
 		start:   twodee.Pt(sprite.X(), sprite.Y()),
+		frames: map[int]*twodee.Animation{
+			PLAYER_NORMAL: twodee.Anim([]int{0, 1, 2}, 4),
+		},
+		state: PLAYER_NORMAL,
 	}
 }
 
@@ -164,6 +174,7 @@ func (p *Player) Reset() {
 
 func (p *Player) Update() {
 	p.Elapsed += time.Second / time.Duration(UPDATE_HZ)
+	p.Sprite.SetFrame(p.frames[p.state].Next())
 	p.Sprite.Update()
 }
 
