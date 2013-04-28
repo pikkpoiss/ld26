@@ -128,6 +128,10 @@ const (
 	CR
 )
 
+func (p *Player) Injure(amt float64) {
+	p.Damage += amt
+}
+
 func (p *Player) Bounce(t Spatial) {
 	bp := p.Bounds()
 	bt := t.Bounds()
@@ -170,6 +174,7 @@ func (p *Player) Reset() {
 	p.VelocityY = 0
 	p.MoveTo(p.start)
 	p.Elapsed = 0
+	p.Damage = 0
 }
 
 func (p *Player) Update() {

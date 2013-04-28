@@ -37,6 +37,7 @@ const (
 	STATE_GAME
 	STATE_SUMMARY
 	STATE_WIN
+	STATE_DIED
 )
 
 const (
@@ -202,6 +203,11 @@ func (g *Game) handleKeys() {
 				g.laststate = g.state
 				g.state = STATE_OPTION
 			}
+		case STATE_DIED:
+			switch {
+			case state == 1:
+				g.state = STATE_GAME
+			}
 		case STATE_WIN:
 			fallthrough
 		case STATE_SPLASH:
@@ -226,7 +232,6 @@ func (g *Game) handleKeys() {
 			case key == 80 && state == 0: // p
 				g.handleWin()
 			default:
-				log.Printf("Key: %v %v\n", key, state)
 			}
 		case STATE_SUMMARY:
 			switch {
@@ -298,6 +303,18 @@ func (g *Game) Run() (err error) {
 					g.handleWin()
 				}
 			}
+			b := g.Level.Player.Bounds()
+			c := g.Camera.Bounds()
+			if b.Max.X < c.Min.X || b.Min.X > c.Max.X ||
+				b.Max.Y < c.Min.Y || b.Min.Y > c.Max.Y {
+				// Player is offscreen so damage them
+				g.Level.Player.Injure(0.005)
+			}
+			if g.Level.Player.Damage > 1 {
+				g.state = STATE_DIED
+				g.Splash.SetFrame(3)
+				g.Level.Restart()
+			}
 		}
 	}()
 	running := true
@@ -328,6 +345,8 @@ func (g *Game) Draw() {
 		option = true
 	}
 	switch state {
+	case STATE_DIED:
+		fallthrough
 	case STATE_WIN:
 		fallthrough
 	case STATE_SPLASH:
@@ -339,6 +358,7 @@ func (g *Game) Draw() {
 	case STATE_GAME:
 		if g.Level != nil {
 			g.Level.Draw()
+			g.Font.Printf(0, 70, "Damage %.2f", g.Level.Player.Damage)
 			g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
 			g.Font.Printf(0, 10, "FPS %.1f", fps)
 		}

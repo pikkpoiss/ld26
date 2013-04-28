@@ -67,9 +67,12 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 		var sprite = l.System.NewSprite(tileset, x, y, w, h, index)
 		sprite.SetFrame(index)
 		var zone Colliding
-		if index == 0 {
+		switch index {
+		case 0:
 			zone = NewVictoryZone(sprite)
-		} else {
+		case 2:
+			zone = NewHurtZone(sprite)
+		default:
 			zone = NewBounceZone(sprite)
 		}
 		l.zones = append(l.zones, zone)

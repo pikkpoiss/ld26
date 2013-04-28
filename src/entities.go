@@ -67,6 +67,18 @@ type Zone struct {
 	state int
 }
 
+type HurtZone Zone
+
+func NewHurtZone(sprite *twodee.Sprite) *HurtZone {
+	return &HurtZone{
+		Sprite: NewSprite(sprite),
+	}
+}
+
+func (z *HurtZone) Collision(p *Player) {
+	p.Injure(0.01)
+}
+
 type BounceZone Zone
 
 func NewBounceZone(sprite *twodee.Sprite) *BounceZone {
