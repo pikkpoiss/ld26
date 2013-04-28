@@ -37,6 +37,7 @@ const (
 	STATE_GAME
 	STATE_SUMMARY
 	STATE_WIN
+	STATE_DIED
 )
 
 const (
@@ -194,6 +195,11 @@ func (g *Game) handleKeys() {
 				g.laststate = g.state
 				g.state = STATE_OPTION
 			}
+		case STATE_DIED:
+			switch {
+			case state == 1:
+				g.state = STATE_GAME
+			}
 		case STATE_WIN:
 			fallthrough
 		case STATE_SPLASH:
@@ -289,6 +295,18 @@ func (g *Game) Run() (err error) {
 					g.handleWin()
 				}
 			}
+			b := g.Level.Player.Bounds()
+			c := g.Camera.Bounds()
+			if b.Max.X < c.Min.X || b.Min.X > c.Max.X ||
+				b.Max.Y < c.Min.Y || b.Min.Y > c.Max.Y {
+				// Player is offscreen so damage them
+				g.Level.Player.Injure(0.005)
+			}
+			if g.Level.Player.Damage > 1 {
+				g.state = STATE_DIED
+				g.Splash.SetFrame(3)
+				g.Level.Restart()
+			}
 		}
 	}()
 	running := true
@@ -319,6 +337,8 @@ func (g *Game) Draw() {
 		option = true
 	}
 	switch state {
+	case STATE_DIED:
+		fallthrough
 	case STATE_WIN:
 		fallthrough
 	case STATE_SPLASH:

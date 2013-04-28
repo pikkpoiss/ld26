@@ -174,6 +174,7 @@ func (p *Player) Reset() {
 	p.VelocityY = 0
 	p.MoveTo(p.start)
 	p.Elapsed = 0
+	p.Damage = 0
 }
 
 func (p *Player) Update() {
