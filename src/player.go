@@ -41,7 +41,7 @@ func NewPlayer(sprite *Sprite) *Player {
 		Damage:  0,
 		start:   twodee.Pt(sprite.X(), sprite.Y()),
 		frames: map[int]*twodee.Animation{
-			PLAYER_NORMAL: twodee.Anim([]int{0, 1, 2}, 4),
+			PLAYER_NORMAL: twodee.Anim([]int{0, 1, 2, 6}, 4),
 		},
 		state: PLAYER_NORMAL,
 	}
