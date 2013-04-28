@@ -117,10 +117,10 @@ func (l *Level) Restart() {
 }
 
 // GetClosestEntity returns the closest CIRCLE type entity to the given entity.
-func (l *Level) GetClosestAttachable(s Spatial) Stateful {
+func (l *Level) GetClosestAttachable(s Spatial) Attachable {
 	p := s.Centroid()
 	ld := math.MaxFloat64
-	var ce Stateful = nil
+	var ce Attachable = nil
 	for _, e := range l.wells {
 		if s == e {
 			continue

@@ -58,7 +58,7 @@ type Game struct {
 	laststate    int
 	lastpaint    time.Time
 	exit         chan bool
-	closest      Stateful
+	closest      Attachable
 }
 
 func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {

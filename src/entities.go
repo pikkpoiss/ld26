@@ -54,6 +54,10 @@ func (g *GravityWell) SetState(state int) {
 	}
 }
 
+func (g *GravityWell) Spin() SpinOption {
+	return NOSPIN
+}
+
 type Zone struct {
 	*Sprite
 }
@@ -81,4 +85,3 @@ func NewVictoryZone(sprite *twodee.Sprite) *VictoryZone {
 func (z *VictoryZone) Collision(p *Player) {
 	log.Printf("Woop won")
 }
-
