@@ -9,6 +9,7 @@ Instructions
 ------------
 Starting:
 
+    brew install mpg123 libao
     git clone ...
     git submodule init
     git submodule update

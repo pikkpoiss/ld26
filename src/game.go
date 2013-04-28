@@ -50,6 +50,8 @@ type Game struct {
 	Window       *twodee.Window
 	Camera       *twodee.Camera
 	Font         *twodee.Font
+	Sound        *SoundSystem
+	soundChannel chan int
 	Level        *Level
 	Levels       []string
 	Scores       []*Score
@@ -121,11 +123,17 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 		err = fmt.Errorf("Couldn't load summary menu %v", err)
 		return
 	}
+	game.Sound = NewSoundSystem()
+	game.soundChannel = make(chan int, 1)
+	go func() {
+		game.Sound.DecodeTrack("/Users/wesgoodman/Downloads/grammy.mp3", game.soundChannel)
+	}()
 	return
 }
 
 func (g *Game) handleClose() {
 	g.System.SetCloseCallback(func() int {
+		g.Sound.Shutdown()
 		g.exit <- true
 		return 0
 	})
