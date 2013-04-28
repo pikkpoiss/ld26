@@ -139,3 +139,7 @@ func (l *Level) Update() {
 		e.Update()
 	}
 }
+
+func (l *Level) GetStars(score *Score) {
+	score.Stars = 2
+}

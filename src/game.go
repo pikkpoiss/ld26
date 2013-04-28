@@ -52,9 +52,10 @@ type Game struct {
 	Font         *twodee.Font
 	Level        *Level
 	Levels       []string
+	Scores       []*Score
 	CurrentLevel int
 	Splash       *twodee.Sprite
-	SelectMenu   *Menu
+	SelectMenu   *LevelSelect
 	OptionMenu   *Menu
 	Summary      *Summary
 	state        int
@@ -77,6 +78,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 			"data/level-dev.json",
 			"data/level-dev.json",
 		},
+		Scores:       make([]*Score, 6),
 		CurrentLevel: 0,
 		state:        STATE_SPLASH,
 		exit:         make(chan bool, 1),
@@ -99,7 +101,7 @@ func NewGame(sys *twodee.System, win *twodee.Window) (game *Game, err error) {
 	game.handleKeys()
 	game.handleClose()
 	game.System.SetClearColor(BG_R, BG_G, BG_B, BG_A)
-	game.SelectMenu = NewMenu(game.System)
+	game.SelectMenu = NewLevelSelect(game.System, len(game.Levels))
 	if twodee.LoadTiledMap(game.System, game.SelectMenu, "data/menu-select.json"); err != nil {
 		err = fmt.Errorf("Couldn't load select menu: %v", err)
 		return
@@ -142,7 +144,7 @@ func (g *Game) checkKeys() {
 	}
 }
 
-func (g *Game) handleMenuKey(menu *Menu, key int, state int) {
+func (g *Game) handleMenuKey(menu Navigatable, key int, state int) {
 	switch {
 	case state == 0:
 		return
@@ -245,7 +247,17 @@ func (g *Game) SetLevel(i int) {
 }
 
 func (g *Game) handleWin() {
-	g.Summary.SetMetrics(g.Level, g.CurrentLevel+1)
+	score := &Score{
+		Time:   g.Level.Player.Elapsed,
+		Damage: g.Level.Player.Damage,
+		Level:  g.CurrentLevel + 1,
+	}
+	g.Level.GetStars(score)
+	g.Summary.SetMetrics(score)
+	if score.BetterThan(g.Scores[g.CurrentLevel]) {
+		g.Scores[g.CurrentLevel] = score
+		g.SelectMenu.SetScores(g.Scores)
+	}
 	g.state = STATE_SUMMARY
 	g.SelectMenu.SetSelectable(g.CurrentLevel+1, true)
 	g.SelectMenu.NextSelection()

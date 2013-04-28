@@ -69,6 +69,12 @@ func (o *MenuOption) SetState(state int) {
 	}
 }
 
+// Interface to menus
+type Navigatable interface {
+	PrevSelection()
+	NextSelection()
+}
+
 type Menu struct {
 	system     *twodee.System
 	background *Sprite
@@ -155,6 +161,45 @@ func (m *Menu) GetSelection() int {
 	return m.index
 }
 
+type LevelSelect struct {
+	*Menu
+	scores []*Score
+	star *Sprite
+}
+
+func NewLevelSelect(s *twodee.System, levels int) *LevelSelect {
+	return &LevelSelect{
+		Menu:   NewMenu(s),
+		scores: make([]*Score, levels),
+		star:   nil,
+	}
+}
+
+func (l *LevelSelect) SetScores(scores []*Score) {
+	l.scores = scores
+}
+
+func (l *LevelSelect) SetBounds(b twodee.Rectangle) {
+	l.Menu.SetBounds(b)
+	l.star = NewSprite(l.Menu.system.NewSprite("select32", 0, 0, 2, 2, 0))
+	l.star.SetFrame(1)
+}
+
+func (l *LevelSelect) Draw() {
+	l.Menu.Draw()
+	for i, s := range l.scores {
+		if s == nil {
+			continue
+		}
+		pt := l.Menu.options[i].Bounds().Min
+		for j := 0; j < s.Stars; j++ {
+			l.star.MoveTo(pt)
+			pt.X += l.star.Width()
+			l.star.Draw()
+		}
+	}
+}
+
 type Summary struct {
 	system      *twodee.System
 	background  []*Sprite
@@ -232,12 +277,12 @@ func (s *Summary) Draw() {
 	s.font.Printf(pt.X, pt.Y, str)
 }
 
-func (s *Summary) SetMetrics(l *Level, level int) {
-	s.level = level
-	s.time = l.Player.Elapsed
-	s.numstars = 2
+func (s *Summary) SetMetrics(score *Score) {
+	s.level = score.Level
+	s.time = score.Time
+	s.numstars = score.Stars
 	for i := 0; i < len(s.stars); i++ {
-		if i < s.numstars-1 {
+		if i < s.numstars {
 			s.stars[i].SetFrame(1)
 		} else {
 			s.stars[i].SetFrame(0)
