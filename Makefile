@@ -42,6 +42,7 @@ $(OSXBUILD)/MacOS/launch.sh: scripts/launch.sh
 $(OSXBUILD)/MacOS/$(PROJECT): $(SOURCES)
 	mkdir -p $(dir $@)
 	go build -o $@ src/*.go
+	cd $(OSXBUILD)/MacOS/ && ../../../../../scripts/fix.sh
 
 $(OSXBUILD)/Resources/%.icns: assets/%.icns
 	mkdir -p $(dir $@)
