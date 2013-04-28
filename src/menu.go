@@ -123,7 +123,7 @@ func (m *Menu) Draw() {
 	}
 }
 
-func (m *Menu) SetBounds(b twodee.Rectangle) {
+func (m *Menu) Loaded(b twodee.Rectangle, props map[string]string) {
 	sort.Sort(MenuOptionsByX{m.options})
 	m.changeIndex(0)
 	m.options[0].SetState(MENU_SELECTED)
@@ -179,8 +179,8 @@ func (l *LevelSelect) SetScores(scores []*Score) {
 	l.scores = scores
 }
 
-func (l *LevelSelect) SetBounds(b twodee.Rectangle) {
-	l.Menu.SetBounds(b)
+func (l *LevelSelect) Loaded(b twodee.Rectangle, props map[string]string) {
+	l.Menu.Loaded(b, props)
 	l.star = NewSprite(l.Menu.system.NewSprite("select32", 0, 0, 2, 2, 0))
 	l.star.SetFrame(1)
 }
@@ -290,7 +290,7 @@ func (s *Summary) SetMetrics(score *Score) {
 	}
 }
 
-func (s *Summary) SetBounds(b twodee.Rectangle) {
+func (s *Summary) Loaded(b twodee.Rectangle, props map[string]string) {
 	s.width = b.Max.X - b.Min.X
 	s.height = b.Max.Y - b.Min.Y
 }

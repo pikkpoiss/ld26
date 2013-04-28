@@ -14,7 +14,9 @@
  "orientation":"orthogonal",
  "properties":
     {
-
+     "time1":"50",
+     "time2":"20",
+     "time3":"9"
     },
  "tileheight":16,
  "tilesets":[
@@ -37,7 +39,7 @@
          "firstgid":9,
          "image":"sprites16.png",
          "imageheight":16,
-         "imagewidth":64,
+         "imagewidth":128,
          "margin":0,
          "name":"sprites16",
          "properties":

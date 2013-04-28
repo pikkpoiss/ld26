@@ -77,7 +77,7 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 }
 
 // SetBounds stores the size of this particular level.
-func (l *Level) SetBounds(rect twodee.Rectangle) {
+func (l *Level) Loaded(rect twodee.Rectangle, props map[string]string) {
 	l.levelBounds = rect
 }
 
