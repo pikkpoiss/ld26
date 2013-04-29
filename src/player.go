@@ -42,7 +42,7 @@ func NewPlayer(sprite *Sprite) *Player {
 		Damage:  0,
 		start:   twodee.Pt(sprite.X(), sprite.Y()),
 		frames: map[int]*twodee.Animation{
-			PLAYER_NORMAL: twodee.Anim([]int{0, 1, 2, 6}, 4),
+			PLAYER_NORMAL:  twodee.Anim([]int{0, 1, 2, 6}, 4),
 			PLAYER_DAMAGED: twodee.Anim([]int{7, 8, 9, 10}, 4),
 		},
 		state: PLAYER_NORMAL,
@@ -131,8 +131,10 @@ const (
 )
 
 func (p *Player) Injure(amt float64) {
-	p.Damage += amt
-	p.state = PLAYER_DAMAGED
+	if p.state == PLAYER_NORMAL {
+		p.Damage += amt
+		p.state = PLAYER_DAMAGED
+	}
 }
 
 func (p *Player) Bounce(t Spatial) {

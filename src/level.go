@@ -34,6 +34,7 @@ type Level struct {
 	Player      *Player
 	wells       []*GravityWell
 	zones       []Colliding
+	colliding   []Colliding
 	startimes   []int
 	stars       []*Sprite
 }
@@ -75,12 +76,14 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 		switch index {
 		case 0:
 			zone = NewVictoryZone(sprite)
+			l.zones = append(l.zones, zone)
 		case 2:
 			zone = NewHurtZone(sprite)
+			l.zones = append(l.zones, zone)
 		default:
 			zone = NewBounceZone(sprite)
+			l.colliding = append(l.colliding, zone)
 		}
-		l.zones = append(l.zones, zone)
 	default:
 		log.Printf("Tileset: %v %v\n", tileset, index)
 		log.Printf("Dim: %v %v %v %v\n", x, y, w, h)
@@ -109,18 +112,26 @@ func (l *Level) GetBounds() twodee.Rectangle {
 	return l.levelBounds
 }
 
-// GetCollision returns whatever spatial s first collides with in the level.
-func (l *Level) GetCollision(s twodee.Spatial) Colliding {
+// GetCollision returns the closest colliding spatial in the level.
+func (l *Level) GetCollision(s *Player) (out Colliding) {
 	r := s.Bounds()
+	ld := 1000.0
+	sp := twodee.Pt(r.Max.X-r.Min.X/2.0, r.Max.Y-r.Min.Y/2.0)
 	for _, e := range l.zones {
-		if s == e {
-			continue
-		}
 		if r.Overlaps(e.Bounds()) {
-			return e
+			e.Collision(s)
 		}
 	}
-	return nil
+	for _, e := range l.colliding {
+		if r.Overlaps(e.Bounds()) {
+			ep := e.Centroid()
+			if d := math.Hypot(ep.X-sp.X, ep.Y-sp.Y); d < ld {
+				out = e
+				ld = d
+			}
+		}
+	}
+	return
 }
 
 // Draw iterates over all entities in the level and draws them.
@@ -129,6 +140,9 @@ func (l *Level) Draw() {
 		e.Draw()
 	}
 	for _, e := range l.zones {
+		e.Draw()
+	}
+	for _, e := range l.colliding {
 		e.Draw()
 	}
 	for _, e := range l.wells {
