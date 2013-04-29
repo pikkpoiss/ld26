@@ -83,6 +83,28 @@ func (z *HurtZone) Collision(p *Player) {
 	p.Injure(0.01)
 }
 
+type FlashingHurtZone Zone
+
+func NewFlashingHurtZone(sprite *twodee.Sprite) *FlashingHurtZone {
+	return &FlashingHurtZone{
+		Sprite: NewSprite(sprite),
+		frames: map[int]*twodee.Animation{
+			ZONE_NORMAL: twodee.Anim([]int{15, 2}, 64),
+		},
+	}
+}
+
+func (z *FlashingHurtZone) Collision(p *Player) {
+	if z.Frame() != 15 {
+		p.Injure(0.02)
+	}
+}
+
+func (z *FlashingHurtZone) Update() {
+	z.SetFrame(z.frames[z.state].Next())
+	z.Sprite.Update()
+}
+
 type BounceZone Zone
 
 func NewBounceZone(sprite *twodee.Sprite) *BounceZone {

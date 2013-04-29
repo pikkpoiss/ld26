@@ -80,6 +80,9 @@ func (l *Level) Create(tileset string, index int, x, y, w, h float64) {
 		case 2:
 			zone = NewHurtZone(sprite)
 			l.zones = append(l.zones, zone)
+		case 15:
+			zone = NewFlashingHurtZone(sprite)
+			l.zones = append(l.zones, zone)
 		default:
 			zone = NewBounceZone(sprite)
 			l.colliding = append(l.colliding, zone)
