@@ -355,9 +355,9 @@ func (g *Game) Draw() {
 		if g.Level != nil {
 			g.Level.Draw()
 			if g.Level.Player.Damage > 0 {
-				g.Font.Printf(0, 40, "Damage %.2f", g.Level.Player.Damage)
+				g.Font.Printf(10, 40, "Damage %.2f", g.Level.Player.Damage)
 			}
-			g.Font.Printf(0, 10, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
+			g.Font.Printf(10, 10, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
 			//g.Font.Printf(0, 10, "FPS %.1f", fps)
 		}
 	}
