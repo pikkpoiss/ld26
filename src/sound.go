@@ -21,7 +21,7 @@ import (
 
 func Play() {
 	sdl.Init(sdl.INIT_AUDIO)
-	defer sql.Quit()
+	defer sdl.Quit()
 	if mixer.OpenAudio(mixer.DEFAULT_FREQUENCY, mixer.DEFAULT_FORMAT,
 		mixer.DEFAULT_CHANNELS, 4096) != 0 {
 		panic(sdl.GetError())
