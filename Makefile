@@ -17,7 +17,9 @@
 PROJECT  = ld26
 SOURCES  = $(wildcard src/*.go)
 
-OSXBUILD = build/$(PROJECT)-osx/${PROJECT}.app/Contents
+BASEBUILD = build/$(PROJECT)-osx
+OSXBUILD = ${BASEBUILD}/${PROJECT}.app/Contents
+
 OSXLIBS  = $(wildcard lib/osx/*.dylib)
 OSXLIBSD = $(subst lib/osx/,$(OSXBUILD)/MacOS/,$(OSXLIBS)) \
 
@@ -40,6 +42,9 @@ $(OSXBUILD)/MacOS/launch.sh: scripts/launch.sh
 	mkdir -p $(dir $@)
 	cp $< $@
 
+$(BASEBUILD)/README: README
+	cp $< $@
+
 $(OSXBUILD)/MacOS/$(PROJECT): $(SOURCES)
 	mkdir -p $(dir $@)
 	go build -o $@ src/*.go
@@ -57,6 +62,7 @@ build/$(PROJECT)-osx-$(VERSION).zip: \
 	$(OSXBUILD)/Info.plist \
 	$(OSXBUILD)/MacOS/launch.sh \
 	$(OSXLIBSD) \
+	$(BASEBUILD)/README \
 	$(OSXBUILD)/MacOS/$(PROJECT) \
 	$(subst data/,$(OSXBUILD)/Resources/data/,$(wildcard data/*)) \
 	$(subst assets/,$(OSXBUILD)/Resources/, $(wildcard assets/*.icns))
