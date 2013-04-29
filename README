@@ -1,7 +1,9 @@
 Moonshot (Ludum Dare 26)
 ========================
 A `space` adventure. Guide your ship to safety! Avoid danger zones!
-Pro-tip(s): Use spacebar to slingshot around moons; avoid radiation zones!
+Pro-tip(s): Use spacebar to slingshot around moons; Use `esc` to access the
+  menu.
+
 
 Runnings (OSX)
 --------------
