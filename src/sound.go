@@ -21,7 +21,6 @@ import (
 
 func Play() {
 	sdl.Init(sdl.INIT_AUDIO)
-	defer sdl.Quit()
 	if mixer.OpenAudio(mixer.DEFAULT_FREQUENCY, mixer.DEFAULT_FORMAT,
 		mixer.DEFAULT_CHANNELS, 4096) != 0 {
 		panic(sdl.GetError())
@@ -30,6 +29,9 @@ func Play() {
 	if m == nil {
 		panic(sdl.GetError())
 	}
-	defer m.Free()
 	m.PlayMusic(-1)
+}
+
+func CleanupSound() {
+	sdl.Quit()
 }

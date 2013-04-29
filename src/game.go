@@ -224,7 +224,7 @@ func (g *Game) handleKeys() {
 				g.laststate = g.state
 				g.state = STATE_OPTION
 			case key == 80 && state == 1: // p
-				g.handleWin()
+				//g.handleWin()
 			default:
 			}
 		case STATE_SUMMARY:
@@ -331,7 +331,7 @@ func (g *Game) Run() (err error) {
 func (g *Game) Draw() {
 	var (
 		now    = time.Now()
-		fps    = 1.0 / now.Sub(g.lastpaint).Seconds()
+		//fps    = 1.0 / now.Sub(g.lastpaint).Seconds()
 		option = false
 		state  = g.state
 	)
@@ -354,9 +354,11 @@ func (g *Game) Draw() {
 	case STATE_GAME:
 		if g.Level != nil {
 			g.Level.Draw()
-			g.Font.Printf(0, 70, "Damage %.2f", g.Level.Player.Damage)
-			g.Font.Printf(0, 40, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
-			g.Font.Printf(0, 10, "FPS %.1f", fps)
+			if g.Level.Player.Damage > 0 {
+				g.Font.Printf(0, 40, "Damage %.2f", g.Level.Player.Damage)
+			}
+			g.Font.Printf(0, 10, "%.1f seconds", g.Level.Player.Elapsed.Seconds())
+			//g.Font.Printf(0, 10, "FPS %.1f", fps)
 		}
 	}
 	if option {
