@@ -9,9 +9,9 @@
   <key>CFBundleIdentifier</key>
   <string>us.regio.eg</string>
   <key>CFBundleName</key>
-  <string>LD26</string>
+  <string>Moonshot</string>
   <key>CFBundleIconFile</key>
-  <string>tdos.icns</string>
+  <string>moonshot.icns</string>
   <key>CFBundleShortVersionString</key>
   <string>9.9.9</string>
   <key>CFBundleInfoDictionaryVersion</key>

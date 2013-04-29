@@ -14,7 +14,7 @@
 
 .PHONY: build package clean run
 
-PROJECT  = ld26
+PROJECT  = moonshot
 SOURCES  = $(wildcard src/*.go)
 
 BASEBUILD = build/$(PROJECT)-osx
