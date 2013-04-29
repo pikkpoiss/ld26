@@ -14,9 +14,9 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "time1":"20",
-     "time2":"10",
-     "time3":"5"
+     "time1":"40",
+     "time2":"20",
+     "time3":"13"
     },
  "tileheight":16,
  "tilesets":[
