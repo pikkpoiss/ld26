@@ -54,17 +54,17 @@ TODO
     [X] Take damage if you're offscreen
     [X] Restart if the damage gets too high
     [ ] Save / load level scores / progress
-    [ ] Determine "standard" level structures
-    [ ] Build a track of levels of increasing difficulty
+    [X] Determine "standard" level structures
+    [?] Build a track of levels of increasing difficulty
     [ ] Implement billboard system
     [ ] Add help billboards to menus and intro levels
     [ ] Code for sound effects
-    [ ] Code for music
+    [X] Code for music
     [ ] Programmer sfx
-    [ ] Programmer music
-    [ ] Polished sprite work
+    [X] Programmer music
+    [X] Polished sprite work
     [ ] Polished sfx
-    [ ] Polished music
+    [?] Polished music
 
 Brainstorming
 -------------
