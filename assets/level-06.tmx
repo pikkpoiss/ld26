@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="71" height="40" tilewidth="16" tileheight="16">
  <properties>
-  <property name="time1" value="20"/>
-  <property name="time2" value="10"/>
-  <property name="time3" value="5"/>
+  <property name="time1" value="40"/>
+  <property name="time2" value="20"/>
+  <property name="time3" value="13"/>
  </properties>
  <tileset firstgid="1" name="sprites32" tilewidth="32" tileheight="32">
   <image source="../data/sprites32.png" width="512" height="32"/>
