@@ -43,6 +43,7 @@ func main() {
 	if game, err = NewGame(system, window); err != nil {
 		log.Fatalf("Couldn't start game: %v\n", err)
 	}
+	defer CleanupSound()
 	if *level != -1 {
 		game.SetLevel(*level)
 	}
