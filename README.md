@@ -5,8 +5,8 @@ Ludum Dare 26
 
 Theme: minimalism
 
-Instructions
-------------
+Instructions (OSX)
+------------------
 Starting:
 
     brew install libogg libvorbis
@@ -21,6 +21,61 @@ Starting:
 Running:
 
     go run src/*.go
+
+Instructions (Win)
+------------------
+
+Install:
+	Install mingw64
+	Install make
+	http://sourceforge.net/projects/mingw-w64/files/External%20binary%20packages%20%28Win64%20hosted%29/make/
+	http://sourceforge.net/apps/trac/mingw-w64/wiki/Make
+	
+	Place contents of bin in $PATH:
+	http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip
+	PKG_CONFIG_PATH = C:\MinGW64\lib\pkgconfig
+	
+	Download to a non-space path! C:\src
+	http://www.libsdl.org/release/SDL-1.2.15.zip
+	Make sure that make & dep DLLs is also in a non-space path!
+	Make sure your PATH has no space paths in it!
+	./configure
+	
+	http://www.libsdl.org/extras/win32/cross/README.txt
+	http://www.libsdl.org/extras/win32/cross/cross-configure.sh
+	http://www.libsdl.org/extras/win32/cross/cross-make.sh
+	In non-Git Bash terminal:
+	cross-configure.sh
+
+
+
+--
+	DLLs and headers
+	http://www.libsdl.org/release/SDL-1.2.15-win32-x64.zip
+	http://www.libsdl.org/release/SDL-devel-1.2.15-VC.zip
+	http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12-win32-x64.zip
+	http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-devel-1.2.12-VC.zip
+	
+	https://groups.google.com/forum/#!topic/golang-nuts/CJofGE16KTk
+	Create C:\MinGW64\lib\pkgconfig\sdl.pc
+    # sdl pkg-config source file
+
+    prefix=c:/MinGW64
+    exec_prefix=${prefix}
+    libdir=${exec_prefix}/lib
+    includedir=${prefix}/include
+
+    Name: sdl
+    Description: Simple DirectMedia Layer is a cross-platform multimedia library designed to provide low level access to audio, keyboard, mouse, joystick, 3D hardware via OpenGL, and 2D video framebuffer.
+    Version: 1.2.15
+    Requires:
+    Conflicts:
+    Libs: -L${libdir}  -lmingw32 -lSDLmain -lSDL  -mwindows
+    Libs.private: -lmingw32 -lSDLmain -lSDL  -mwindows  -liconv -lm -luser32 -lgdi32 -lwinmm -ldxguid
+    Cflags: -I${includedir}/SDL -D_GNU_SOURCE=1 -Dmain=SDL_main
+
+    go get -u github.com/banthar/Go-SDL/mixer
+	go get -u github.com/banthar/Go-SDL/sdl
 
 TODO
 ----
@@ -53,18 +108,19 @@ TODO
     [X] Make blue regions hurt you instead of bouncing
     [X] Take damage if you're offscreen
     [X] Restart if the damage gets too high
-    [ ] Save / load level scores / progress
     [X] Determine "standard" level structures
-    [?] Build a track of levels of increasing difficulty
+    [X] Build a track of levels of increasing difficulty
+    [X] Code for music
+    [X] Programmer music
+    [X] Polished sprite work
+    [X] Polished music
+    [ ] Save / load level scores / progress
     [ ] Implement billboard system
     [ ] Add help billboards to menus and intro levels
     [ ] Code for sound effects
-    [X] Code for music
     [ ] Programmer sfx
-    [X] Programmer music
-    [X] Polished sprite work
     [ ] Polished sfx
-    [?] Polished music
+
 
 Brainstorming
 -------------
