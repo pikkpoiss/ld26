@@ -70,5 +70,12 @@ build/$(PROJECT)-osx-$(VERSION).zip: \
 
 build: build/$(PROJECT)-osx-$(VERSION).zip
 
+build-lion: build
+	chmod +w $(OSXBUILD)/MacOS/*.dylib && \
+		cp lib/osx-lion/*.dylib $(OSXBUILD)/MacOS && \
+		chmod -w $(OSXBUILD)/MacOS/*.dylib && \
+		cd build && \
+		zip -r $(PROJECT)-osx-lion-$(VERSION).zip $(PROJECT)-osx
+
 run: build
 	$(OSXBUILD)/MacOS/launch.sh
