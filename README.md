@@ -6,6 +6,7 @@ Ludum Dare 26
 Theme: minimalism
 
 Ludum Dare entry:       http://www.ludumdare.com/compo/ludum-dare-26/?action=preview&uid=7913
+
 Downloads, video, info: http://eg.regio.us/ld26/
 
 Instructions (OSX)
